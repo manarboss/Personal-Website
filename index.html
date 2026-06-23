@@ -1,0 +1,2833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manar Bouaiss | Robotics Engineer</title>
+  <meta name="description" content="Portfolio of Manar Bouaiss, Robotics Engineer specializing in robotics, computer vision, AI, control systems, and automation." />
+  <style>
+    :root{
+      --bg:#05070d;
+      --bg2:#070b14;
+      --card:rgba(255,255,255,.055);
+      --card2:rgba(255,255,255,.085);
+      --border:rgba(255,255,255,.13);
+      --text:#f6f8ff;
+      --muted:#9da6b8;
+      --soft:#6e7589;
+      --cyan:#54f4e6;
+      --cyan2:#69b7ff;
+      --blue:#7e8cff;
+      --glass:rgba(6,10,18,.68);
+      --mx:.5;
+      --my:.5;
+      --scroll:0px;
+      --accentGrad:linear-gradient(135deg,var(--cyan),var(--cyan2),var(--blue));
+      --shadow:0 24px 80px rgba(0,0,0,.46);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;background:var(--bg)}
+    body{
+      min-height:100vh;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,"Segoe UI", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at calc(var(--mx)*100%) calc(var(--my)*100%), rgba(84,244,230,.17), transparent 22rem),
+        radial-gradient(circle at 78% 18%, rgba(103,143,255,.12), transparent 34rem),
+        radial-gradient(circle at 10% 82%, rgba(84,244,230,.08), transparent 28rem),
+        linear-gradient(140deg,#05070d 0%,#07101b 42%,#05070d 100%);
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed;inset:0;z-index:-5;opacity:.5;pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size:42px 42px;
+      mask-image:radial-gradient(circle at 55% 32%,black,transparent 74%);
+    }
+    body::after{
+      content:"";position:fixed;inset:0;z-index:-4;pointer-events:none;opacity:.22;
+      background-image:radial-gradient(rgba(255,255,255,.8) .7px, transparent .7px);
+      background-size:62px 62px;
+    }
+    a{color:inherit;text-decoration:none}
+    button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+    #spaceCanvas{position:fixed;inset:0;z-index:-3;pointer-events:none}
+    .noise{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.62'/%3E%3C/svg%3E")}
+    .top-note{
+      position:fixed;top:0;left:0;right:0;height:42px;z-index:30;
+      display:flex;align-items:center;justify-content:center;
+      font-size:.76rem;letter-spacing:.08em;color:#aeb7c8;background:rgba(4,7,12,.78);
+      border-bottom:1px solid rgba(255,255,255,.09);backdrop-filter:blur(16px);
+    }
+    .top-note b{color:#fff}.top-note .dot{width:6px;height:6px;background:var(--cyan);border-radius:50%;margin:0 12px;box-shadow:0 0 18px var(--cyan)}
+    header{
+      position:fixed;top:42px;left:0;right:0;z-index:29;
+      padding:20px clamp(22px,6vw,92px);
+      display:flex;align-items:center;justify-content:space-between;
+      backdrop-filter:blur(18px);
+      background:linear-gradient(to bottom,rgba(5,7,13,.72),rgba(5,7,13,.24));
+    }
+    .logo{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.02em}
+    .logo-mark{
+      width:36px;height:36px;border-radius:14px;display:grid;place-items:center;
+      background:var(--accentGrad);color:#061016;font-weight:900;box-shadow:0 0 28px rgba(84,244,230,.35);
+    }
+    nav{display:flex;gap:28px;align-items:center;color:#aab3c6;font-size:.92rem}
+    nav a{transition:.25s}.nav a:hover,nav a:hover{color:#fff;text-shadow:0 0 18px rgba(84,244,230,.5)}
+    .resume-btn{padding:13px 21px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.04);font-weight:700;color:#fff}
+    .resume-btn:hover{border-color:rgba(84,244,230,.5);box-shadow:0 0 28px rgba(84,244,230,.13)}
+    .menu-btn{display:none;width:42px;height:42px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.04)}
+    .side-dots{position:fixed;right:28px;top:50%;transform:translateY(-50%);z-index:28;display:flex;flex-direction:column;gap:14px}
+    .side-dots a{width:9px;height:9px;border-radius:999px;background:rgba(255,255,255,.23);transition:.25s;position:relative}
+    .side-dots a.active{height:28px;background:var(--accentGrad);box-shadow:0 0 20px rgba(84,244,230,.65)}
+    .side-dots a::before{content:attr(data-label);position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:.72rem;color:#b8c1d4;letter-spacing:.08em;opacity:0;pointer-events:none;transition:.2s;white-space:nowrap}
+    .side-dots a:hover::before{opacity:1}
+    main{position:relative;z-index:1}
+    section{min-height:100vh;padding:120px clamp(22px,6vw,92px);position:relative}
+    .hero{padding-top:190px;display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,.9fr);align-items:center;gap:30px;overflow:hidden}
+    .hero-left{position:relative;z-index:3;max-width:760px}
+    .badge{display:inline-flex;align-items:center;gap:10px;padding:11px 18px;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.035);backdrop-filter:blur(12px);color:#aab3c5;font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:.8rem;letter-spacing:.05em}
+    .badge i{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 20px var(--cyan);display:inline-block}
+    .eyebrow{margin-top:36px;color:#8cf7ef;font-family:ui-monospace, SFMono-Regular, Menlo, monospace;letter-spacing:.4em;font-size:.78rem;text-transform:uppercase}
+    h1{font-family:Georgia, 'Times New Roman', serif;font-size:clamp(4rem,8vw,8.7rem);line-height:.9;letter-spacing:-.075em;margin:28px 0;color:#f7f8ff;text-wrap:balance}
+    h1 em{font-style:italic;background:var(--accentGrad);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(84,244,230,.18))}
+    .lead{max-width:680px;font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1.65;color:#b6bfce}.lead b{color:#fff}.lead .accent{color:var(--cyan);font-weight:700}
+    .hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin:36px 0 32px}
+    .primary,.secondary{padding:16px 24px;border-radius:999px;font-weight:800;border:1px solid rgba(255,255,255,.13);display:inline-flex;align-items:center;gap:10px;transition:.25s}
+    .primary{background:var(--accentGrad);color:#061016;box-shadow:0 18px 38px rgba(84,244,230,.19)}
+    .primary:hover{transform:translateY(-3px);box-shadow:0 24px 56px rgba(84,244,230,.28)}
+    .secondary{background:rgba(255,255,255,.035);color:#fff}.secondary:hover{border-color:rgba(84,244,230,.42);transform:translateY(-3px)}
+    .socials{display:flex;gap:18px;color:#8892a8;font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:.86rem}.socials a:hover{color:var(--cyan)}.socials span{color:#394053}
+    .hero-stage{position:relative;min-height:650px;height:72vh;z-index:2;perspective:1200px;transform-style:preserve-3d}
+    .hero-stage::before{content:"";position:absolute;inset:8% -5% 6% 4%;border:1px solid rgba(84,244,230,.12);border-radius:46% 54% 52% 48%;background:radial-gradient(circle at 50% 50%,rgba(84,244,230,.11),transparent 56%);box-shadow:inset 0 0 70px rgba(84,244,230,.06),0 0 120px rgba(84,244,230,.04);animation:orb 18s linear infinite}
+    .hero-stage::after{content:"";position:absolute;right:7%;bottom:12%;font-family:ui-monospace, monospace;letter-spacing:.18em;font-size:.68rem;color:#6f7890;border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:10px 14px;background:rgba(255,255,255,.035)}
+    @keyframes orb{to{transform:rotate(360deg)}}
+    .orbit{position:absolute;border:1px solid rgba(84,244,230,.1);border-radius:50%;filter:drop-shadow(0 0 12px rgba(84,244,230,.14))}.orbit.one{width:520px;height:520px;right:6%;top:7%;animation:spin 38s linear infinite}.orbit.two{width:360px;height:360px;right:19%;top:20%;animation:spin 29s linear reverse infinite}.orbit.three{width:220px;height:220px;right:36%;top:35%;animation:spin 21s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    .wire-robot{position:absolute;will-change:transform,filter;transform-style:preserve-3d;filter:drop-shadow(0 0 16px rgba(84,244,230,.38));transition:filter .25s ease}
+    .wire-robot svg{display:block;width:100%;height:auto;overflow:visible}
+    .wire-robot:hover{filter:drop-shadow(0 0 28px rgba(84,244,230,.75)) drop-shadow(0 0 70px rgba(105,183,255,.22))}
+    .svg-line{fill:none;stroke:var(--cyan);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+    .svg-thin{fill:none;stroke:rgba(84,244,230,.66);stroke-width:1.05;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+    .svg-soft{fill:rgba(84,244,230,.055);stroke:rgba(84,244,230,.72);stroke-width:1.6;vector-effect:non-scaling-stroke}
+    .svg-dot{fill:var(--cyan);filter:drop-shadow(0 0 8px var(--cyan))}.svg-fill{fill:rgba(84,244,230,.1);stroke:var(--cyan);stroke-width:1.6;vector-effect:non-scaling-stroke}
+    .dash{stroke-dasharray:8 10;animation:dash 6s linear infinite}@keyframes dash{to{stroke-dashoffset:-180}}
+    .pulse{animation:pulse 2.2s ease-in-out infinite}@keyframes pulse{0%,100%{opacity:.38}50%{opacity:1}}
+    .rotor{transform-box:fill-box;transform-origin:center;animation:rotor 1.1s linear infinite}@keyframes rotor{to{transform:rotate(360deg)}}
+    .drone{width:min(270px,28vw);right:48%;top:5%;animation:droneIdle 5s ease-in-out infinite;z-index:7}.humanoid{width:min(310px,31vw);right:4%;top:9%;z-index:5;animation:humIdle 6s ease-in-out infinite}.rover{width:min(340px,35vw);right:44%;bottom:13%;z-index:6;animation:roverCruise 6.5s ease-in-out infinite}
+    @keyframes droneIdle{0%,100%{translate:0 0}50%{translate:0 -24px}}@keyframes humIdle{0%,100%{translate:0 0}50%{translate:0 16px}}@keyframes roverCruise{0%,100%{translate:-22px 0}50%{translate:26px -4px}}
+    .wheel{transform-box:fill-box;transform-origin:center;animation:wheelSpin 1.4s linear infinite}@keyframes wheelSpin{to{transform:rotate(360deg)}}
+    .scan-ring{animation:scan 2.5s ease-in-out infinite;transform-box:fill-box;transform-origin:center}@keyframes scan{0%,100%{transform:scale(.92);opacity:.3}50%{transform:scale(1.08);opacity:1}}
+    .drone-trail,.robot-particle{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--cyan);box-shadow:0 0 14px var(--cyan);pointer-events:none;opacity:.8;animation:fadeTrail 1.25s ease-out forwards}@keyframes fadeTrail{to{transform:translateY(35px) scale(.2);opacity:0}}
+    .section-title{max-width:1050px;margin:0 auto 50px}.section-title .small{font-family:ui-monospace,monospace;color:var(--cyan);letter-spacing:.36em;font-size:.78rem;text-transform:uppercase;margin-bottom:16px}.section-title h2{font-family:Georgia, 'Times New Roman', serif;font-size:clamp(2.8rem,5vw,5.4rem);line-height:.95;letter-spacing:-.06em}.section-title p{color:#aeb7c7;line-height:1.75;font-size:1.05rem;max-width:740px;margin-top:18px}
+    .grid{display:grid;gap:20px;max-width:1120px;margin:0 auto}.about-grid{grid-template-columns:1.1fr .9fr}.card{position:relative;border:1px solid rgba(255,255,255,.12);border-radius:30px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.025));box-shadow:var(--shadow);padding:28px;overflow:hidden;backdrop-filter:blur(16px);transition:.28s ease}.card::before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at calc(var(--mx)*100%) calc(var(--my)*100%),rgba(84,244,230,.18),transparent 30%);opacity:0;transition:.3s;pointer-events:none}.card:hover{transform:translateY(-6px);border-color:rgba(84,244,230,.32)}.card:hover::before{opacity:1}.card>*{position:relative;z-index:1}.card h3{font-size:1.25rem;margin-bottom:12px}.card p,.card li{color:#aeb7c7;line-height:1.75}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}.stat{border:1px solid rgba(255,255,255,.11);border-radius:20px;padding:18px;background:rgba(255,255,255,.035)}.stat b{display:block;font-size:1.7rem;color:#fff}.stat span{color:#8e97ac;font-size:.86rem}.timeline{display:grid;gap:18px}.item{padding:24px;border-left:1px solid rgba(84,244,230,.35);position:relative}.item::before{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--cyan);left:-5px;top:33px;box-shadow:0 0 18px var(--cyan)}.item time{font-family:ui-monospace,monospace;color:#7ef8f0;font-size:.82rem}.item h3{margin:8px 0 5px}.item .where{color:#8f99ad;margin-bottom:12px}.item ul{padding-left:18px}.skill-cloud{display:flex;flex-wrap:wrap;gap:11px}.chip{padding:11px 14px;border-radius:999px;border:1px solid rgba(84,244,230,.19);background:rgba(84,244,230,.06);color:#dffdfa;font-size:.9rem}.projects-toolbar{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:28px}.filter{padding:11px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.035);color:#aab3c6}.filter.active,.filter:hover{background:var(--accentGrad);color:#061016;font-weight:800}.project-grid{grid-template-columns:repeat(3,1fr)}.project-card{min-height:300px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer}.project-card .tag{font-family:ui-monospace,monospace;color:var(--cyan);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase}.project-card h3{font-size:1.48rem;margin:18px 0 12px}.techs{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.techs span{font-size:.78rem;color:#c8fdf8;background:rgba(84,244,230,.08);border:1px solid rgba(84,244,230,.15);padding:7px 9px;border-radius:999px}.awards{grid-template-columns:repeat(2,1fr)}.contact-grid{grid-template-columns:.9fr 1.1fr}.contact-card a{display:block;margin-top:13px;color:var(--cyan)}
+    .footer{text-align:center;padding:42px;color:#7f899d;border-top:1px solid rgba(255,255,255,.08)}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:60;display:none;align-items:center;justify-content:center;padding:22px;backdrop-filter:blur(12px)}.modal.open{display:flex}.modal-box{max-width:680px;border:1px solid rgba(255,255,255,.14);border-radius:30px;background:linear-gradient(145deg,rgba(13,19,31,.96),rgba(5,8,14,.96));box-shadow:0 40px 100px rgba(0,0,0,.55);padding:30px;position:relative}.close{position:absolute;right:20px;top:18px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05)}.modal-box h3{font-size:2rem;margin-bottom:12px}.modal-box p{color:#b6bfce;line-height:1.8}.modal-box .techs{margin-top:24px}
+    @media(max-width:1100px){.hero{grid-template-columns:1fr}.hero-stage{min-height:610px;order:-1;margin-top:10px}.hero{padding-top:130px}.drone{right:54%;top:4%;width:235px}.humanoid{right:8%;top:8%;width:270px}.rover{right:47%;bottom:10%;width:305px}.about-grid,.contact-grid{grid-template-columns:1fr}.project-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){.top-note{font-size:.62rem;padding:0 14px;text-align:center}.top-note span:last-child{display:none}header{top:42px;padding:14px 18px}nav{position:fixed;top:100px;left:18px;right:18px;padding:18px;border:1px solid var(--border);border-radius:22px;background:rgba(6,9,16,.95);flex-direction:column;align-items:flex-start;display:none}.nav-open nav{display:flex}.menu-btn{display:grid;place-items:center}.resume-btn{display:none}.side-dots{display:none}section{padding:96px 18px;min-height:auto}.hero{padding-top:135px}.hero-stage{height:520px;min-height:520px}.hero-stage::after{display:none}h1{font-size:clamp(3.3rem,17vw,5.4rem)}.lead{font-size:1rem}.drone{width:165px;right:50%;top:3%}.humanoid{width:190px;right:3%;top:12%}.rover{width:220px;right:38%;bottom:8%}.orbit.one{width:310px;height:310px}.orbit.two{width:230px;height:230px}.orbit.three{display:none}.stats{grid-template-columns:1fr}.project-grid,.awards{grid-template-columns:1fr}.socials{flex-wrap:wrap}.badge{font-size:.68rem}.eyebrow{letter-spacing:.22em}.section-title h2{font-size:3rem}}
+  
+
+    /* Final hero robot layout: same screenshot composition, updated blueprint humanoid + added small dog */
+    .blueprint-human{
+      width:min(315px,31vw);
+      right:4%;
+      top:7%;
+      z-index:7;
+      animation:humIdle 6s ease-in-out infinite;
+    }
+    .blueprint-human svg{height:auto;width:100%;overflow:visible}
+    .blueprint-human .blueprint-main{
+      stroke:var(--cyan);
+      stroke-width:1.55;
+      fill:none;
+      filter:drop-shadow(0 0 4px rgba(84,244,230,.8)) drop-shadow(0 0 14px rgba(84,244,230,.38));
+      vector-effect:non-scaling-stroke;
+    }
+    .blueprint-human .blueprint-fill{fill:rgba(5,12,20,.42)}
+    .blueprint-human .accent-detail{
+      stroke:var(--cyan);
+      stroke-width:1;
+      fill:none;
+      opacity:.62;
+      vector-effect:non-scaling-stroke;
+    }
+    .blueprint-human .dashed-ui{
+      stroke:var(--cyan);
+      stroke-width:.85;
+      stroke-dasharray:4 4;
+      fill:none;
+      opacity:.36;
+      animation:dash 8s linear infinite;
+      vector-effect:non-scaling-stroke;
+    }
+    .blueprint-human:hover{filter:drop-shadow(0 0 30px rgba(84,244,230,.85)) drop-shadow(0 0 80px rgba(105,183,255,.22))}
+
+    .dogbot-mini{
+      width:min(235px,22vw);
+      right:28%;
+      bottom:2%;
+      z-index:8;
+      opacity:.92;
+      animation:dogMiniFloat 5.6s ease-in-out infinite;
+    }
+    @keyframes dogMiniFloat{0%,100%{translate:-10px 0}50%{translate:12px -8px}}
+    .dogbot-mini .line{
+      fill:none;stroke:var(--cyan);stroke-width:5.6;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;
+    }
+    .dogbot-mini .thin{
+      fill:none;stroke:rgba(84,244,230,.64);stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;
+    }
+    .dogbot-mini .mid{
+      fill:none;stroke:rgba(84,244,230,.82);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;
+    }
+    .dogbot-mini .dash{stroke-dasharray:12 14;animation:dash 7s linear infinite}
+    .dogbot-mini .body-fill{
+      fill:rgba(84,244,230,.075);stroke:var(--cyan);stroke-width:5.6;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;
+    }
+    .dogbot-mini .panel{
+      fill:rgba(84,244,230,.06);stroke:rgba(84,244,230,.92);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;
+    }
+    .dogbot-mini .joint{
+      fill:rgba(84,244,230,.07);stroke:var(--cyan);stroke-width:4.4;vector-effect:non-scaling-stroke;
+    }
+    .dogbot-mini .joint-inner{fill:none;stroke:rgba(84,244,230,.62);stroke-width:1.8;vector-effect:non-scaling-stroke}
+    .dogbot-mini .dot{fill:var(--cyan);filter:drop-shadow(0 0 9px var(--cyan))}
+    .dogbot-mini .pulse{animation:pulse 2.2s ease-in-out infinite}
+    .dogbot-mini .ring{transform-box:fill-box;transform-origin:center;animation:ringSpin 9s linear infinite}
+    @keyframes ringSpin{to{transform:rotate(360deg)}}
+    .dogbot-mini .front-leg{transform-box:fill-box;transform-origin:500px 283px;animation:frontLeg 4.4s ease-in-out infinite}
+    .dogbot-mini .rear-leg{transform-box:fill-box;transform-origin:205px 283px;animation:rearLeg 4.4s ease-in-out infinite}
+    .dogbot-mini .back-front-leg{opacity:.36;transform-box:fill-box;transform-origin:565px 292px;animation:backFront 4.4s ease-in-out infinite}
+    .dogbot-mini .back-rear-leg{opacity:.36;transform-box:fill-box;transform-origin:280px 292px;animation:backRear 4.4s ease-in-out infinite}
+    @keyframes frontLeg{0%,100%{transform:rotate(0deg) translateY(0)}50%{transform:rotate(-3deg) translateY(-4px)}}
+    @keyframes rearLeg{0%,100%{transform:rotate(0deg) translateY(0)}50%{transform:rotate(3deg) translateY(-4px)}}
+    @keyframes backFront{0%,100%{transform:rotate(0deg)}50%{transform:rotate(2deg)}}
+    @keyframes backRear{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-2deg)}}
+    .dogbot-mini .sensor{animation:sensorPulse 2.1s ease-in-out infinite}
+    @keyframes sensorPulse{0%,100%{opacity:.45}50%{opacity:1}}
+
+    @media(max-width:1100px){.blueprint-human{right:4%;top:7%;width:285px}.dogbot-mini{right:30%;bottom:4%;width:210px}}
+    @media(max-width:760px){.blueprint-human{width:200px;right:3%;top:10%}.dogbot-mini{width:150px;right:28%;bottom:6%}}
+
+  
+    /* --- FINAL VISUAL COMPOSITION OVERRIDE: dog removed, humanoid right, drone+rover left --- */
+    .hero{
+      grid-template-columns:minmax(0,1.02fr) minmax(520px,.98fr);
+      gap:clamp(28px,4vw,70px);
+    }
+    .hero-stage{
+      min-height:720px;
+      height:76vh;
+      isolation:isolate;
+      overflow:visible;
+    }
+    .hero-stage::before{
+      inset:4% -2% 2% -2%;
+      border-radius:44% 56% 50% 50%;
+      background:
+        radial-gradient(circle at 72% 48%, rgba(84,244,230,.16), transparent 45%),
+        radial-gradient(circle at 28% 55%, rgba(105,183,255,.08), transparent 46%);
+      box-shadow:
+        inset 0 0 90px rgba(84,244,230,.07),
+        0 0 140px rgba(84,244,230,.06);
+    }
+    .hero-stage::after{
+      right:12%;
+      bottom:5%;
+      color:#8a96ad;
+      background:rgba(6,10,18,.42);
+      backdrop-filter:blur(10px);
+    }
+    .orbit.one{width:610px;height:610px;right:-2%;top:3%;opacity:.95}
+    .orbit.two{width:430px;height:430px;right:10%;top:18%;opacity:.8}
+    .orbit.three{width:260px;height:260px;right:39%;top:36%;opacity:.64}
+    .wire-robot{
+      transition:filter .35s ease, opacity .35s ease, transform .12s ease-out;
+      transform-origin:center center;
+    }
+    .wire-robot svg{
+      shape-rendering:geometricPrecision;
+    }
+    .drone{
+      width:min(275px,24vw);
+      left:3%;
+      right:auto;
+      top:7%;
+      z-index:9;
+      opacity:.98;
+    }
+    .rover{
+      width:min(390px,34vw);
+      left:3%;
+      right:auto;
+      bottom:8%;
+      z-index:8;
+      opacity:.96;
+    }
+    .blueprint-human{
+      width:min(445px,40vw);
+      right:-2%;
+      top:-1%;
+      z-index:10;
+      opacity:.98;
+    }
+    .blueprint-human .blueprint-main{
+      stroke-width:1.75;
+      filter:
+        drop-shadow(0 0 5px rgba(84,244,230,.95))
+        drop-shadow(0 0 18px rgba(84,244,230,.42));
+    }
+    .blueprint-human .accent-detail{opacity:.72}
+    .blueprint-human .dashed-ui{opacity:.28}
+    .blueprint-human:hover,
+    .drone:hover,
+    .rover:hover{
+      filter:
+        drop-shadow(0 0 32px rgba(84,244,230,.95))
+        drop-shadow(0 0 82px rgba(105,183,255,.25));
+    }
+
+    @media(max-width:1100px){
+      .hero{grid-template-columns:1fr}
+      .hero-stage{
+        min-height:680px;
+        height:680px;
+        order:-1;
+      }
+      .drone{left:10%;top:4%;width:230px}
+      .rover{left:8%;bottom:7%;width:330px}
+      .blueprint-human{right:7%;top:1%;width:365px}
+      .orbit.one{right:4%;top:3%;width:560px;height:560px}
+      .orbit.two{right:18%;top:18%;width:380px;height:380px}
+      .orbit.three{right:48%;top:38%;width:220px;height:220px}
+    }
+
+    @media(max-width:760px){
+      .hero-stage{
+        min-height:560px;
+        height:560px;
+        margin-top:4px;
+      }
+      .drone{left:2%;top:4%;width:155px}
+      .rover{left:2%;bottom:6%;width:235px}
+      .blueprint-human{right:-4%;top:8%;width:225px}
+      .orbit.one{width:360px;height:360px;right:-2%;top:10%}
+      .orbit.two{width:250px;height:250px;right:18%;top:25%}
+      .orbit.three{display:none}
+    }
+
+  
+    /* --- FINAL ALIGNMENT PASS: humanoid top = drone top, humanoid bottom = rover bottom --- */
+    .hero-stage{
+      --visual-top: 7%;
+      --visual-bottom: 8%;
+    }
+
+    .drone{
+      top: var(--visual-top) !important;
+      left: 3% !important;
+      width: min(275px,24vw) !important;
+    }
+
+    .rover{
+      bottom: var(--visual-bottom) !important;
+      left: 3% !important;
+      width: min(390px,34vw) !important;
+    }
+
+    .blueprint-human{
+      top: var(--visual-top) !important;
+      bottom: var(--visual-bottom) !important;
+      right: 0% !important;
+      width: auto !important;
+      height: auto !important;
+      max-height: none !important;
+      display: flex !important;
+      align-items: stretch !important;
+      justify-content: center !important;
+    }
+
+    .blueprint-human svg{
+      height: 100% !important;
+      width: auto !important;
+      max-width: none !important;
+      max-height: none !important;
+    }
+
+    @media(max-width:1100px){
+      .hero-stage{
+        --visual-top: 5%;
+        --visual-bottom: 7%;
+      }
+      .drone{
+        top: var(--visual-top) !important;
+        left: 8% !important;
+        width: 230px !important;
+      }
+      .rover{
+        bottom: var(--visual-bottom) !important;
+        left: 8% !important;
+        width: 330px !important;
+      }
+      .blueprint-human{
+        top: var(--visual-top) !important;
+        bottom: var(--visual-bottom) !important;
+        right: 6% !important;
+        width: auto !important;
+      }
+    }
+
+    @media(max-width:760px){
+      .hero-stage{
+        --visual-top: 6%;
+        --visual-bottom: 7%;
+      }
+      .drone{
+        top: var(--visual-top) !important;
+        left: 2% !important;
+        width: 155px !important;
+      }
+      .rover{
+        bottom: var(--visual-bottom) !important;
+        left: 2% !important;
+        width: 235px !important;
+      }
+      .blueprint-human{
+        top: var(--visual-top) !important;
+        bottom: var(--visual-bottom) !important;
+        right: -2% !important;
+        width: auto !important;
+      }
+    }
+
+  
+    /* --- FINAL POLISHED ROBOT COMPOSITION: smaller left robots + taller humanoid --- */
+    .hero-stage{
+      min-height:720px !important;
+      height:76vh !important;
+      --group-top: 6%;
+      --group-bottom: 9%;
+      --left-x: 7%;
+      --human-right: 5%;
+    }
+
+    .hero-stage::before{
+      inset:3% -1% 3% -1% !important;
+      opacity:.78 !important;
+    }
+
+    .orbit.one{
+      width:560px !important;
+      height:560px !important;
+      right:2% !important;
+      top:6% !important;
+      opacity:.72 !important;
+    }
+
+    .orbit.two{
+      width:390px !important;
+      height:390px !important;
+      right:13% !important;
+      top:21% !important;
+      opacity:.58 !important;
+    }
+
+    .orbit.three{
+      width:230px !important;
+      height:230px !important;
+      right:42% !important;
+      top:40% !important;
+      opacity:.42 !important;
+    }
+
+    .drone{
+      top:var(--group-top) !important;
+      left:var(--left-x) !important;
+      right:auto !important;
+      width:clamp(150px, 17vw, 218px) !important;
+      max-width:218px !important;
+      z-index:11 !important;
+      opacity:.95 !important;
+    }
+
+    .rover{
+      left:var(--left-x) !important;
+      right:auto !important;
+      bottom:var(--group-bottom) !important;
+      width:clamp(245px, 25vw, 325px) !important;
+      max-width:325px !important;
+      z-index:10 !important;
+      opacity:.94 !important;
+    }
+
+    .blueprint-human{
+      top:calc(var(--group-top) - 1%) !important;
+      bottom:var(--group-bottom) !important;
+      right:var(--human-right) !important;
+      left:auto !important;
+      width:auto !important;
+      height:auto !important;
+      max-height:none !important;
+      z-index:12 !important;
+      display:flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+      opacity:.98 !important;
+    }
+
+    .blueprint-human svg{
+      height:100% !important;
+      width:auto !important;
+      max-height:none !important;
+      max-width:none !important;
+      transform:scaleX(.88) scaleY(1.04) !important;
+      transform-origin:center center !important;
+    }
+
+    .blueprint-human .blueprint-main{
+      stroke-width:1.55 !important;
+      filter:
+        drop-shadow(0 0 5px rgba(0,243,255,.9))
+        drop-shadow(0 0 18px rgba(84,244,230,.38)) !important;
+    }
+
+    .blueprint-human .accent-detail{
+      opacity:.65 !important;
+    }
+
+    .blueprint-human .dashed-ui{
+      opacity:.24 !important;
+    }
+
+    .drone svg,
+    .rover svg{
+      transform:scale(.94);
+      transform-origin:center center;
+    }
+
+    @media(max-width:1180px){
+      .hero-stage{
+        min-height:670px !important;
+        height:670px !important;
+        --group-top: 6%;
+        --group-bottom: 8%;
+        --left-x: 7%;
+        --human-right: 4%;
+      }
+
+      .drone{
+        width:190px !important;
+        max-width:190px !important;
+      }
+
+      .rover{
+        width:285px !important;
+        max-width:285px !important;
+      }
+
+      .blueprint-human svg{
+        transform:scaleX(.84) scaleY(1.03) !important;
+      }
+    }
+
+    @media(max-width:900px){
+      .hero-stage{
+        min-height:620px !important;
+        height:620px !important;
+        --group-top: 6%;
+        --group-bottom: 8%;
+        --left-x: 5%;
+        --human-right: 2%;
+      }
+
+      .drone{
+        width:165px !important;
+      }
+
+      .rover{
+        width:250px !important;
+      }
+
+      .blueprint-human svg{
+        transform:scaleX(.80) scaleY(1.02) !important;
+      }
+    }
+
+    @media(max-width:760px){
+      .hero-stage{
+        min-height:540px !important;
+        height:540px !important;
+        --group-top: 7%;
+        --group-bottom: 8%;
+        --left-x: 1%;
+        --human-right: -5%;
+      }
+
+      .drone{
+        width:122px !important;
+      }
+
+      .rover{
+        width:195px !important;
+      }
+
+      .blueprint-human svg{
+        transform:scaleX(.74) scaleY(1.01) !important;
+      }
+
+      .orbit.one{
+        width:340px !important;
+        height:340px !important;
+        right:-5% !important;
+        top:11% !important;
+      }
+
+      .orbit.two{
+        width:235px !important;
+        height:235px !important;
+        right:16% !important;
+        top:27% !important;
+      }
+    }
+
+  
+    /* --- SENIOR UI/UX FINAL PASS: heavy-chassis humanoid + cleaner visual hierarchy --- */
+    .hero{
+      grid-template-columns:minmax(0,1.02fr) minmax(560px,.98fr) !important;
+      gap:clamp(34px,4.5vw,84px) !important;
+    }
+
+    .hero-copy{
+      position:relative;
+      z-index:3;
+    }
+
+    .hero-stage{
+      min-height:730px !important;
+      height:77vh !important;
+      max-height:820px !important;
+      --visual-top: 6%;
+      --visual-bottom: 8%;
+      --left-stack-x: 6%;
+      --right-robot-x: 3%;
+      overflow:visible !important;
+      isolation:isolate;
+    }
+
+    .hero-stage::before{
+      inset:2.5% -1.5% 3% -1.5% !important;
+      opacity:.82 !important;
+      background:
+        radial-gradient(circle at 68% 47%, rgba(84,244,230,.16), transparent 43%),
+        radial-gradient(circle at 27% 58%, rgba(105,183,255,.08), transparent 45%) !important;
+      box-shadow:
+        inset 0 0 90px rgba(84,244,230,.075),
+        0 0 145px rgba(84,244,230,.055) !important;
+    }
+
+    .orbit.one{
+      width:570px !important;
+      height:570px !important;
+      right:1% !important;
+      top:5% !important;
+      opacity:.66 !important;
+    }
+
+    .orbit.two{
+      width:390px !important;
+      height:390px !important;
+      right:14% !important;
+      top:21% !important;
+      opacity:.52 !important;
+    }
+
+    .orbit.three{
+      width:225px !important;
+      height:225px !important;
+      right:43% !important;
+      top:42% !important;
+      opacity:.36 !important;
+    }
+
+    .drone{
+      top:var(--visual-top) !important;
+      left:var(--left-stack-x) !important;
+      right:auto !important;
+      width:clamp(148px, 16vw, 210px) !important;
+      max-width:210px !important;
+      z-index:11 !important;
+      opacity:.96 !important;
+    }
+
+    .rover{
+      left:calc(var(--left-stack-x) - 1%) !important;
+      right:auto !important;
+      bottom:var(--visual-bottom) !important;
+      width:clamp(245px, 25vw, 315px) !important;
+      max-width:315px !important;
+      z-index:10 !important;
+      opacity:.94 !important;
+    }
+
+    .blueprint-human{
+      top:calc(var(--visual-top) - .5%) !important;
+      bottom:calc(var(--visual-bottom) - .2%) !important;
+      right:var(--right-robot-x) !important;
+      left:auto !important;
+      width:auto !important;
+      height:auto !important;
+      max-height:none !important;
+      display:flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+      z-index:12 !important;
+      opacity:.99 !important;
+    }
+
+    .blueprint-human svg{
+      height:100% !important;
+      width:auto !important;
+      max-height:none !important;
+      max-width:none !important;
+      transform:scaleX(.96) scaleY(1.02) !important;
+      transform-origin:center center !important;
+    }
+
+    .blueprint-human .blueprint-main{
+      stroke:#00f3ff !important;
+      stroke-width:1.65 !important;
+      fill:none;
+      filter:
+        drop-shadow(0 0 5px rgba(0,243,255,.95))
+        drop-shadow(0 0 18px rgba(84,244,230,.42)) !important;
+    }
+
+    .blueprint-human .blueprint-fill{
+      fill:rgba(5,12,20,.46) !important;
+    }
+
+    .blueprint-human .accent-detail{
+      stroke:#00f3ff !important;
+      stroke-width:.95 !important;
+      opacity:.68 !important;
+    }
+
+    .blueprint-human .dashed-ui{
+      stroke:#00f3ff !important;
+      stroke-width:.72 !important;
+      stroke-dasharray:4,4 !important;
+      opacity:.22 !important;
+    }
+
+    .drone svg,
+    .rover svg{
+      transform:scale(.93);
+      transform-origin:center center;
+    }
+
+    .wire-robot:hover{
+      filter:
+        drop-shadow(0 0 30px rgba(84,244,230,.85))
+        drop-shadow(0 0 85px rgba(105,183,255,.24)) !important;
+    }
+
+    @media(max-width:1180px){
+      .hero{
+        grid-template-columns:1fr !important;
+      }
+      .hero-stage{
+        min-height:675px !important;
+        height:675px !important;
+        --visual-top:6%;
+        --visual-bottom:8%;
+        --left-stack-x:7%;
+        --right-robot-x:5%;
+      }
+      .drone{
+        width:188px !important;
+      }
+      .rover{
+        width:285px !important;
+      }
+      .blueprint-human svg{
+        transform:scaleX(.92) scaleY(1.015) !important;
+      }
+    }
+
+    @media(max-width:900px){
+      .hero-stage{
+        min-height:620px !important;
+        height:620px !important;
+        --visual-top:6%;
+        --visual-bottom:8%;
+        --left-stack-x:4%;
+        --right-robot-x:1%;
+      }
+      .drone{
+        width:160px !important;
+      }
+      .rover{
+        width:250px !important;
+      }
+      .blueprint-human svg{
+        transform:scaleX(.86) scaleY(1.01) !important;
+      }
+    }
+
+    @media(max-width:760px){
+      .hero-stage{
+        min-height:545px !important;
+        height:545px !important;
+        --visual-top:7%;
+        --visual-bottom:8%;
+        --left-stack-x:1%;
+        --right-robot-x:-5%;
+      }
+      .drone{
+        width:122px !important;
+      }
+      .rover{
+        width:192px !important;
+      }
+      .blueprint-human svg{
+        transform:scaleX(.78) scaleY(1) !important;
+      }
+      .orbit.one{
+        width:340px !important;
+        height:340px !important;
+        right:-5% !important;
+        top:12% !important;
+      }
+      .orbit.two{
+        width:235px !important;
+        height:235px !important;
+        right:15% !important;
+        top:28% !important;
+      }
+      .orbit.three{
+        display:none !important;
+      }
+    }
+
+  
+    /* === FINAL ORGANIZED ROBOT HERO LAYOUT ===
+       Purpose: keep the provided heavy-chassis humanoid large and aligned,
+       while drone + rover stay smaller on the left as a balanced robotics stack. */
+    .hero{
+      grid-template-columns:minmax(0,1.04fr) minmax(560px,.96fr) !important;
+      gap:clamp(34px,4.6vw,88px) !important;
+    }
+
+    .hero-stage{
+      min-height:740px !important;
+      height:78vh !important;
+      max-height:850px !important;
+      --robot-top:6%;
+      --robot-bottom:8%;
+      --left-robot-x:7%;
+      --human-x:4%;
+      overflow:visible !important;
+      isolation:isolate;
+    }
+
+    .hero-stage::before{
+      inset:3% -1% 2.5% -1% !important;
+      border-radius:46% 54% 50% 50% !important;
+      background:
+        radial-gradient(circle at 69% 48%, rgba(84,244,230,.16), transparent 44%),
+        radial-gradient(circle at 27% 56%, rgba(105,183,255,.08), transparent 44%) !important;
+      opacity:.82 !important;
+      box-shadow:
+        inset 0 0 92px rgba(84,244,230,.075),
+        0 0 145px rgba(84,244,230,.055) !important;
+    }
+
+    .orbit.one{
+      width:585px !important;
+      height:585px !important;
+      right:0 !important;
+      top:4.5% !important;
+      opacity:.66 !important;
+    }
+
+    .orbit.two{
+      width:405px !important;
+      height:405px !important;
+      right:13% !important;
+      top:20% !important;
+      opacity:.52 !important;
+    }
+
+    .orbit.three{
+      width:235px !important;
+      height:235px !important;
+      right:43% !important;
+      top:40% !important;
+      opacity:.36 !important;
+    }
+
+    .drone{
+      top:var(--robot-top) !important;
+      left:var(--left-robot-x) !important;
+      right:auto !important;
+      width:clamp(145px,15.6vw,205px) !important;
+      max-width:205px !important;
+      z-index:11 !important;
+      opacity:.95 !important;
+    }
+
+    .rover{
+      left:calc(var(--left-robot-x) - 1%) !important;
+      right:auto !important;
+      bottom:var(--robot-bottom) !important;
+      width:clamp(238px,24vw,310px) !important;
+      max-width:310px !important;
+      z-index:10 !important;
+      opacity:.94 !important;
+    }
+
+    .final-heavy-humanoid{
+      top:calc(var(--robot-top) - .8%) !important;
+      bottom:calc(var(--robot-bottom) - .4%) !important;
+      right:var(--human-x) !important;
+      left:auto !important;
+      width:auto !important;
+      height:auto !important;
+      max-width:none !important;
+      max-height:none !important;
+      display:flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+      z-index:12 !important;
+      opacity:.99 !important;
+    }
+
+    .final-heavy-humanoid svg{
+      height:100% !important;
+      width:auto !important;
+      max-width:none !important;
+      max-height:none !important;
+      transform:scaleX(.98) scaleY(1.025) !important;
+      transform-origin:center center !important;
+      shape-rendering:geometricPrecision;
+    }
+
+    .final-heavy-humanoid .blueprint-main{
+      stroke:#00f3ff !important;
+      stroke-width:1.65 !important;
+      fill:none;
+      vector-effect:non-scaling-stroke;
+      filter:
+        drop-shadow(0 0 5px rgba(0,243,255,.96))
+        drop-shadow(0 0 18px rgba(84,244,230,.44)) !important;
+    }
+
+    .final-heavy-humanoid .blueprint-fill{
+      fill:rgba(5,12,20,.52) !important;
+    }
+
+    .final-heavy-humanoid .accent-detail{
+      stroke:#00f3ff !important;
+      stroke-width:.95 !important;
+      fill:none;
+      opacity:.68 !important;
+      vector-effect:non-scaling-stroke;
+    }
+
+    .final-heavy-humanoid .dashed-ui{
+      stroke:#00f3ff !important;
+      stroke-width:.72 !important;
+      stroke-dasharray:4,4 !important;
+      fill:none;
+      opacity:.22 !important;
+      vector-effect:non-scaling-stroke;
+    }
+
+    .drone svg,
+    .rover svg{
+      transform:scale(.92);
+      transform-origin:center center;
+    }
+
+    .wire-robot:hover{
+      filter:
+        drop-shadow(0 0 30px rgba(84,244,230,.86))
+        drop-shadow(0 0 85px rgba(105,183,255,.24)) !important;
+    }
+
+    @media(max-width:1180px){
+      .hero{
+        grid-template-columns:1fr !important;
+      }
+
+      .hero-stage{
+        min-height:685px !important;
+        height:685px !important;
+        --robot-top:6%;
+        --robot-bottom:7%;
+        --left-robot-x:7%;
+        --human-x:5%;
+      }
+
+      .drone{
+        width:185px !important;
+      }
+
+      .rover{
+        width:282px !important;
+      }
+
+      .final-heavy-humanoid svg{
+        transform:scaleX(.93) scaleY(1.015) !important;
+      }
+    }
+
+    @media(max-width:900px){
+      .hero-stage{
+        min-height:625px !important;
+        height:625px !important;
+        --robot-top:6%;
+        --robot-bottom:8%;
+        --left-robot-x:4%;
+        --human-x:1%;
+      }
+
+      .drone{
+        width:158px !important;
+      }
+
+      .rover{
+        width:246px !important;
+      }
+
+      .final-heavy-humanoid svg{
+        transform:scaleX(.87) scaleY(1.01) !important;
+      }
+    }
+
+    @media(max-width:760px){
+      .hero-stage{
+        min-height:550px !important;
+        height:550px !important;
+        --robot-top:7%;
+        --robot-bottom:7%;
+        --left-robot-x:1%;
+        --human-x:-5%;
+      }
+
+      .drone{
+        width:120px !important;
+      }
+
+      .rover{
+        width:188px !important;
+      }
+
+      .final-heavy-humanoid svg{
+        transform:scaleX(.79) scaleY(1) !important;
+      }
+
+      .orbit.one{
+        width:340px !important;
+        height:340px !important;
+        right:-5% !important;
+        top:12% !important;
+      }
+
+      .orbit.two{
+        width:235px !important;
+        height:235px !important;
+        right:15% !important;
+        top:28% !important;
+      }
+
+      .orbit.three{
+        display:none !important;
+      }
+    }
+
+  
+    /* === QUICK FINAL UPDATE: make the humanoid robot bigger and more dominant === */
+    .hero-stage{
+      --human-top-bigger: 1.5%;
+      --human-bottom-bigger: 3%;
+      --human-right-bigger: 2%;
+    }
+
+    .final-heavy-humanoid{
+      top: var(--human-top-bigger) !important;
+      bottom: var(--human-bottom-bigger) !important;
+      right: var(--human-right-bigger) !important;
+      width: auto !important;
+      height: auto !important;
+      max-width: none !important;
+      max-height: none !important;
+      z-index: 14 !important;
+    }
+
+    .final-heavy-humanoid svg{
+      height: 100% !important;
+      width: auto !important;
+      transform: scaleX(1.08) scaleY(1.04) !important;
+      transform-origin: center center !important;
+    }
+
+    @media(max-width:1180px){
+      .hero-stage{
+        --human-top-bigger: 2%;
+        --human-bottom-bigger: 3%;
+        --human-right-bigger: 4%;
+      }
+
+      .final-heavy-humanoid svg{
+        transform: scaleX(1.02) scaleY(1.03) !important;
+      }
+    }
+
+    @media(max-width:900px){
+      .hero-stage{
+        --human-top-bigger: 3%;
+        --human-bottom-bigger: 4%;
+        --human-right-bigger: 0%;
+      }
+
+      .final-heavy-humanoid svg{
+        transform: scaleX(.96) scaleY(1.02) !important;
+      }
+    }
+
+    @media(max-width:760px){
+      .hero-stage{
+        --human-top-bigger: 5%;
+        --human-bottom-bigger: 5%;
+        --human-right-bigger: -7%;
+      }
+
+      .final-heavy-humanoid svg{
+        transform: scaleX(.88) scaleY(1.01) !important;
+      }
+    }
+
+  
+    /* === DRAGGABLE ROBOT INTERACTION === */
+    .hero-stage::after{
+      content:"" !important;
+    }
+
+    .robot-draggable{
+      cursor:grab;
+      user-select:none;
+      touch-action:none;
+      will-change:transform;
+    }
+
+    .robot-draggable svg{
+      pointer-events:none;
+    }
+
+    .robot-draggable.is-dragging{
+      cursor:grabbing;
+      filter:
+        drop-shadow(0 0 36px rgba(84,244,230,.95))
+        drop-shadow(0 0 100px rgba(105,183,255,.32)) !important;
+    }
+
+  
+    /* === FINAL PROJECT + ROBOT POPUP PASS === */
+    .project-grid{
+      grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+      gap:18px !important;
+      align-items:stretch;
+    }
+
+    .project-card{
+      min-height:390px !important;
+      overflow:hidden;
+      padding:0 !important;
+      border-radius:28px !important;
+      display:flex !important;
+      flex-direction:column !important;
+      justify-content:flex-start !important;
+      position:relative;
+    }
+
+    .project-card::after{
+      content:"Click for details";
+      position:absolute;
+      right:14px;
+      bottom:14px;
+      color:#90fff7;
+      font:700 .63rem ui-monospace,monospace;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      opacity:0;
+      transform:translateY(8px);
+      transition:.25s ease;
+    }
+
+    .project-card:hover::after{
+      opacity:.8;
+      transform:translateY(0);
+    }
+
+    .project-thumb{
+      height:150px;
+      width:100%;
+      border-bottom:1px solid rgba(84,244,230,.14);
+      background:
+        radial-gradient(circle at 35% 35%, rgba(84,244,230,.22), transparent 38%),
+        linear-gradient(135deg, rgba(84,244,230,.08), rgba(105,183,255,.05));
+      position:relative;
+      overflow:hidden;
+    }
+
+    .project-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transform:scale(1.02);
+      transition:transform .45s ease, filter .45s ease;
+      filter:saturate(1.08) contrast(1.03);
+    }
+
+    .project-card:hover .project-thumb img{
+      transform:scale(1.08);
+    }
+
+    .project-thumb.image-missing::before{
+      content:attr(data-placeholder);
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      color:#c8fdf8;
+      font:800 .72rem ui-monospace,monospace;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      background:
+        linear-gradient(120deg, rgba(84,244,230,.08), rgba(105,183,255,.08)),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 1px, transparent 1px 22px),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 22px);
+    }
+
+    .project-card-body{
+      padding:22px 22px 0;
+      flex:1;
+    }
+
+    .project-card .techs{
+      padding:0 22px 24px;
+      margin-top:18px;
+    }
+
+    .project-card h3{
+      font-size:1.18rem !important;
+      line-height:1.2;
+      margin:14px 0 10px !important;
+    }
+
+    .project-card p{
+      font-size:.91rem;
+      line-height:1.65;
+    }
+
+    .education-timeline{
+      grid-template-columns:1fr !important;
+      max-width:980px;
+      margin-inline:auto;
+    }
+
+    .certification-grid{
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+
+    .cert-card{
+      min-height:155px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      justify-content:center;
+    }
+
+    .cert-card span{
+      width:38px;
+      height:38px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      color:#06111b;
+      background:linear-gradient(135deg,var(--cyan),#78a4ff);
+      font-weight:900;
+      font-family:ui-monospace,monospace;
+      box-shadow:0 0 26px rgba(84,244,230,.28);
+    }
+
+    .project-modal-box{
+      width:min(1120px,94vw) !important;
+      max-width:1120px !important;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:0;
+      overflow:hidden;
+      padding:0 !important;
+      border-radius:34px !important;
+      border:1px solid rgba(84,244,230,.22) !important;
+      background:
+        linear-gradient(145deg,rgba(13,19,31,.98),rgba(5,8,14,.98)) !important;
+    }
+
+    .modal-media{
+      min-height:470px;
+      position:relative;
+      background:
+        radial-gradient(circle at 30% 20%,rgba(84,244,230,.24),transparent 40%),
+        linear-gradient(135deg,rgba(84,244,230,.09),rgba(105,183,255,.06));
+      border-right:1px solid rgba(84,244,230,.14);
+      overflow:hidden;
+    }
+
+    .modal-media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      position:absolute;
+      inset:0;
+      filter:saturate(1.08) contrast(1.02);
+    }
+
+    .modal-media::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(90deg, transparent 0%, rgba(5,8,14,.16) 100%),
+        radial-gradient(circle at 50% 50%, transparent 40%, rgba(5,8,14,.34));
+    }
+
+    .modal-media-fallback{
+      position:absolute;
+      inset:0;
+      display:none;
+      place-items:center;
+      text-align:center;
+      padding:28px;
+      color:#c8fdf8;
+      font:900 .88rem ui-monospace,monospace;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      background:
+        radial-gradient(circle at 40% 35%, rgba(84,244,230,.2), transparent 36%),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 1px, transparent 1px 28px),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 28px);
+    }
+
+    .modal-copy{
+      padding:44px 42px 40px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      min-height:470px;
+    }
+
+    .modal-kicker{
+      display:inline-flex;
+      width:max-content;
+      color:#06111b;
+      background:linear-gradient(135deg,var(--cyan),#78a4ff);
+      padding:8px 12px;
+      border-radius:999px;
+      font:900 .68rem ui-monospace,monospace;
+      letter-spacing:.15em;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+
+    .modal-box h3{
+      font-size:clamp(2rem,3.2vw,3.25rem) !important;
+      line-height:1;
+      letter-spacing:-.04em;
+      margin-bottom:18px !important;
+    }
+
+    .modal-box p{
+      font-size:1.03rem;
+      line-height:1.85 !important;
+      color:#c3ccd9 !important;
+    }
+
+    .modal-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:22px;
+    }
+
+    .modal-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid rgba(84,244,230,.24);
+      color:#c8fdf8;
+      background:rgba(84,244,230,.06);
+      font-weight:800;
+      transition:.22s ease;
+    }
+
+    .modal-link:hover{
+      transform:translateY(-2px);
+      background:rgba(84,244,230,.12);
+    }
+
+    .close{
+      z-index:4;
+      color:#fff;
+      cursor:pointer;
+      backdrop-filter:blur(10px);
+    }
+
+    .robot-draggable{
+      cursor:grab;
+    }
+
+    .robot-draggable::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:-18px;
+      transform:translateX(-50%) translateY(8px);
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(5,8,14,.72);
+      border:1px solid rgba(84,244,230,.18);
+      color:#c8fdf8;
+      font:800 .58rem ui-monospace,monospace;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      opacity:0;
+      pointer-events:none;
+      transition:.25s ease;
+      white-space:nowrap;
+    }
+
+    .robot-draggable:hover::before{
+      opacity:.82;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    @media(max-width:1280px){
+      .project-grid{
+        grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+      }
+    }
+
+    @media(max-width:900px){
+      .project-modal-box{
+        grid-template-columns:1fr;
+        width:min(720px,94vw) !important;
+      }
+      .modal-media{
+        min-height:300px;
+        border-right:0;
+        border-bottom:1px solid rgba(84,244,230,.14);
+      }
+      .modal-copy{
+        min-height:auto;
+        padding:32px 26px;
+      }
+      .certification-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+    }
+
+    @media(max-width:760px){
+      .project-grid{
+        grid-template-columns:1fr !important;
+      }
+      .project-thumb{
+        height:190px;
+      }
+      .certification-grid{
+        grid-template-columns:1fr;
+      }
+      .modal{
+        padding:12px;
+      }
+      .modal-media{
+        min-height:220px;
+      }
+      .modal-copy{
+        padding:28px 22px;
+      }
+    }
+
+  
+    /* === FINAL UPDATE: 7 concise projects + balanced card layout === */
+    .project-grid{
+      grid-template-columns:repeat(auto-fit,minmax(245px,1fr)) !important;
+      gap:18px !important;
+    }
+
+    .project-card{
+      min-height:365px !important;
+    }
+
+    .project-card h3{
+      font-size:1.08rem !important;
+      line-height:1.22 !important;
+    }
+
+    .project-card p{
+      font-size:.88rem !important;
+      line-height:1.55 !important;
+    }
+
+    .project-thumb{
+      height:145px !important;
+    }
+
+    .projects-toolbar{
+      max-width:980px;
+      margin-inline:auto;
+    }
+
+    .filter{
+      cursor:pointer;
+    }
+
+    @media(max-width:760px){
+      .project-card{
+        min-height:auto !important;
+      }
+      .project-thumb{
+        height:190px !important;
+      }
+    }
+
+  
+    /* === FINAL UPDATE: 8 projects, removed inspection module, added HRI + RAG === */
+    .project-grid{
+      grid-template-columns:repeat(auto-fit,minmax(245px,1fr)) !important;
+      gap:18px !important;
+    }
+
+    .project-card{
+      min-height:355px !important;
+    }
+
+    .project-card h3{
+      font-size:1.04rem !important;
+      line-height:1.22 !important;
+    }
+
+    .project-card p{
+      font-size:.86rem !important;
+      line-height:1.52 !important;
+    }
+
+    .project-thumb{
+      height:140px !important;
+    }
+
+    .projects-toolbar{
+      max-width:1040px;
+      margin-inline:auto;
+    }
+
+    @media(max-width:760px){
+      .project-card{
+        min-height:auto !important;
+      }
+
+      .project-thumb{
+        height:190px !important;
+      }
+    }
+
+  
+    /* === FINAL VISUAL TUNE: humanoid less shiny, closer to drone/rover style === */
+    .blueprint-human,
+    .final-heavy-humanoid{
+      filter:drop-shadow(0 0 13px rgba(84,244,230,.30)) !important;
+      opacity:.90 !important;
+    }
+
+    .blueprint-human:hover,
+    .final-heavy-humanoid:hover{
+      filter:
+        drop-shadow(0 0 20px rgba(84,244,230,.48))
+        drop-shadow(0 0 42px rgba(105,183,255,.14)) !important;
+    }
+
+    .blueprint-human .blueprint-main,
+    .final-heavy-humanoid .blueprint-main{
+      stroke:#54f4e6 !important;
+      stroke-width:1.42 !important;
+      opacity:.78 !important;
+      filter:drop-shadow(0 0 3px rgba(84,244,230,.42)) !important;
+    }
+
+    .blueprint-human .blueprint-fill,
+    .final-heavy-humanoid .blueprint-fill{
+      fill:rgba(84,244,230,.035) !important;
+    }
+
+    .blueprint-human .accent-detail,
+    .final-heavy-humanoid .accent-detail{
+      stroke:#54f4e6 !important;
+      stroke-width:.82 !important;
+      opacity:.44 !important;
+      filter:none !important;
+    }
+
+    .blueprint-human .dashed-ui,
+    .final-heavy-humanoid .dashed-ui{
+      stroke:#54f4e6 !important;
+      stroke-width:.62 !important;
+      opacity:.13 !important;
+      filter:none !important;
+    }
+
+    .robot-draggable.is-dragging.final-heavy-humanoid,
+    .robot-draggable.is-dragging.blueprint-human{
+      filter:
+        drop-shadow(0 0 22px rgba(84,244,230,.58))
+        drop-shadow(0 0 48px rgba(105,183,255,.16)) !important;
+    }
+
+    /* Experience card polish for the new Siemens item */
+    .item .where{
+      color:#9aa8bd;
+    }
+
+  
+    /* === FULL CONTEXT WEBSITE PASS === */
+    .full-context-grid{
+      grid-template-columns:1fr 1fr;
+    }
+
+    .full-context-grid .context-wide{
+      grid-column:1/-1;
+    }
+
+    .skills-context-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      max-width:1120px;
+    }
+
+    /* Humanoid is intentionally calmer so it matches the drone and rover. */
+    .blueprint-human,
+    .final-heavy-humanoid{
+      filter:drop-shadow(0 0 10px rgba(84,244,230,.25)) !important;
+      opacity:.88 !important;
+    }
+
+    .blueprint-human:hover,
+    .final-heavy-humanoid:hover{
+      filter:
+        drop-shadow(0 0 18px rgba(84,244,230,.46))
+        drop-shadow(0 0 38px rgba(105,183,255,.12)) !important;
+    }
+
+    .blueprint-human .blueprint-main,
+    .final-heavy-humanoid .blueprint-main{
+      stroke:#54f4e6 !important;
+      stroke-width:1.36 !important;
+      opacity:.72 !important;
+      filter:drop-shadow(0 0 2.5px rgba(84,244,230,.34)) !important;
+    }
+
+    .blueprint-human .blueprint-fill,
+    .final-heavy-humanoid .blueprint-fill{
+      fill:rgba(84,244,230,.028) !important;
+    }
+
+    .blueprint-human .accent-detail,
+    .final-heavy-humanoid .accent-detail{
+      stroke:#54f4e6 !important;
+      stroke-width:.78 !important;
+      opacity:.38 !important;
+      filter:none !important;
+    }
+
+    .blueprint-human .dashed-ui,
+    .final-heavy-humanoid .dashed-ui{
+      stroke:#54f4e6 !important;
+      stroke-width:.58 !important;
+      opacity:.10 !important;
+      filter:none !important;
+    }
+
+    .project-card{
+      min-height:365px !important;
+    }
+
+    .project-card p{
+      font-size:.86rem !important;
+      line-height:1.52 !important;
+    }
+
+    @media(max-width:900px){
+      .full-context-grid,
+      .skills-context-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+  
+    /* === FINAL PRESENTATION PASS: descriptive experience + community sections === */
+    .professional-story .item{padding:30px 30px 30px 34px;}
+    .professional-story .item p,.leadership-story .card p,.featured-cert p{color:#b8c3d2;line-height:1.82;font-size:1rem;}
+    .professional-story .item h3{font-size:1.35rem;}
+    .professional-story .item .where{color:#8cf7ef;font-weight:700;margin-bottom:14px;}
+    .community-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr)) !important;}
+    .featured-cert{min-height:230px;justify-content:flex-start !important;}
+    .featured-cert a{display:inline-flex;width:max-content;margin-top:12px;color:#c8fdf8;border:1px solid rgba(84,244,230,.22);border-radius:999px;padding:9px 13px;background:rgba(84,244,230,.055);font-weight:800;}
+    .featured-cert a:hover{background:rgba(84,244,230,.12);transform:translateY(-2px);}
+    .leadership-story{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .leadership-story .card{min-height:245px;}
+    @media(max-width:900px){.leadership-story{grid-template-columns:1fr;}}
+
+  
+    /* === CERTIFICATE SECTION CLEANUP: no numbers, no labels, certificate link on every card === */
+    .cert-card{
+      min-height:175px !important;
+      display:flex !important;
+      flex-direction:column !important;
+      align-items:flex-start !important;
+      justify-content:space-between !important;
+      gap:16px !important;
+      text-align:left !important;
+    }
+    .cert-card > span{display:none !important;}
+    .cert-card h3{margin-bottom:0 !important;line-height:1.35;}
+    .cert-card p{margin:0 !important;}
+    .cert-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:max-content;
+      margin-top:auto;
+      color:#c8fdf8;
+      border:1px solid rgba(84,244,230,.24);
+      border-radius:999px;
+      padding:9px 14px;
+      background:rgba(84,244,230,.055);
+      font-weight:800;
+      font-size:.84rem;
+      transition:.22s ease;
+    }
+    .cert-link:hover{
+      background:rgba(84,244,230,.12);
+      transform:translateY(-2px);
+      box-shadow:0 0 24px rgba(84,244,230,.14);
+    }
+
+  
+    /* === MOVE HACKATHONS TO LEADERSHIP SECTION === */
+    .featured-community{
+      border-color:rgba(84,244,230,.22) !important;
+      background:
+        linear-gradient(145deg,rgba(84,244,230,.075),rgba(255,255,255,.025)) !important;
+    }
+
+    .featured-community .cert-link{
+      margin-top:18px;
+    }
+
+    #certifications .cert-card{
+      min-height:155px !important;
+    }
+
+    #leadership .leadership-story{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    @media(max-width:900px){
+      #leadership .leadership-story{
+        grid-template-columns:1fr;
+      }
+    }
+
+  
+    /* === ABOUT SECTION CLEANUP: removed What I Build card and balanced layout === */
+    .full-context-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+      align-items:stretch;
+    }
+
+    .full-context-grid .context-wide{
+      grid-column:auto !important;
+    }
+
+    #about .card{
+      min-height:100%;
+    }
+
+    #about .card p{
+      line-height:1.78;
+    }
+
+    @media(max-width:900px){
+      .full-context-grid{
+        grid-template-columns:1fr !important;
+      }
+    }
+
+  
+    /* === FINAL REVIEWED PORTFOLIO POLISH === */
+    .hero-stage::after{display:none !important;content:"" !important;}
+    .robot-draggable::before{display:none !important;content:"" !important;}
+
+    .blueprint-human,
+    .final-heavy-humanoid{
+      opacity:.94 !important;
+      filter:drop-shadow(0 0 16px rgba(84,244,230,.36)) !important;
+    }
+
+    .blueprint-human:hover,
+    .final-heavy-humanoid:hover{
+      filter:
+        drop-shadow(0 0 28px rgba(84,244,230,.72))
+        drop-shadow(0 0 68px rgba(105,183,255,.20)) !important;
+    }
+
+    .blueprint-human .blueprint-main,
+    .final-heavy-humanoid .blueprint-main{
+      stroke:var(--cyan) !important;
+      stroke-width:1.55 !important;
+      opacity:.90 !important;
+      filter:
+        drop-shadow(0 0 4px rgba(84,244,230,.62))
+        drop-shadow(0 0 11px rgba(84,244,230,.22)) !important;
+      vector-effect:non-scaling-stroke;
+    }
+
+    .blueprint-human .blueprint-fill,
+    .final-heavy-humanoid .blueprint-fill{
+      fill:rgba(84,244,230,.055) !important;
+    }
+
+    .blueprint-human .accent-detail,
+    .final-heavy-humanoid .accent-detail{
+      stroke:rgba(84,244,230,.74) !important;
+      stroke-width:.9 !important;
+      opacity:.58 !important;
+      filter:none !important;
+      vector-effect:non-scaling-stroke;
+    }
+
+    .blueprint-human .dashed-ui,
+    .final-heavy-humanoid .dashed-ui{
+      stroke:rgba(84,244,230,.46) !important;
+      stroke-width:.65 !important;
+      opacity:.20 !important;
+      filter:none !important;
+      vector-effect:non-scaling-stroke;
+    }
+
+    .robot-draggable.is-dragging.final-heavy-humanoid,
+    .robot-draggable.is-dragging.blueprint-human{
+      filter:
+        drop-shadow(0 0 28px rgba(84,244,230,.72))
+        drop-shadow(0 0 68px rgba(105,183,255,.20)) !important;
+    }
+
+    section{scroll-margin-top:110px;}
+    .section-title{max-width:1080px;}
+    .card{border-color:rgba(255,255,255,.115);}
+    .card:hover{border-color:rgba(84,244,230,.28);}
+
+    .full-context-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+      align-items:stretch;
+    }
+
+    #about .card{min-height:100%;}
+    #about .card p{line-height:1.78;}
+
+    .project-grid{
+      grid-template-columns:repeat(auto-fit,minmax(245px,1fr)) !important;
+      gap:18px !important;
+    }
+
+    .project-card{
+      min-height:355px !important;
+      border-radius:28px !important;
+    }
+
+    .project-card h3{
+      font-size:1.04rem !important;
+      line-height:1.22 !important;
+    }
+
+    .project-card p{
+      font-size:.86rem !important;
+      line-height:1.52 !important;
+    }
+
+    .cert-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:max-content;
+      color:#c8fdf8;
+      border:1px solid rgba(84,244,230,.24);
+      border-radius:999px;
+      padding:9px 14px;
+      background:rgba(84,244,230,.055);
+      font-weight:800;
+      font-size:.84rem;
+      transition:.22s ease;
+    }
+
+    .cert-link:hover{
+      background:rgba(84,244,230,.12);
+      transform:translateY(-2px);
+      box-shadow:0 0 24px rgba(84,244,230,.14);
+    }
+
+    @media(max-width:900px){
+      .full-context-grid{grid-template-columns:1fr !important;}
+    }
+
+  
+    /* === FINAL TEXT UPDATE: professional hero + refined About section === */
+    .about-refined-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+      max-width:1120px;
+      align-items:stretch;
+    }
+
+    .about-refined-grid .about-wide{
+      grid-column:1 / -1;
+    }
+
+    #about .about-card{
+      min-height:100%;
+      padding:32px !important;
+    }
+
+    #about .about-card h3{
+      font-size:1.36rem;
+      margin-bottom:16px;
+    }
+
+    #about .about-card p{
+      color:#bbc6d6;
+      line-height:1.86;
+      font-size:1rem;
+    }
+
+    #about .about-wide{
+      background:
+        radial-gradient(circle at 18% 20%, rgba(84,244,230,.10), transparent 38%),
+        linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.025)) !important;
+    }
+
+    #about .about-wide .techs{
+      margin-top:24px;
+    }
+
+    .hero-left .lead{
+      max-width:720px;
+    }
+
+    @media(max-width:900px){
+      .about-refined-grid{
+        grid-template-columns:1fr !important;
+      }
+
+      .about-refined-grid .about-wide{
+        grid-column:auto;
+      }
+    }
+
+  
+    /* === FINAL CLEAN HEADER: top note and hero badge removed, original style preserved === */
+    .top-note{
+      display:none !important;
+    }
+
+    header{
+      top:0 !important;
+    }
+
+    .hero{
+      padding-top:155px !important;
+    }
+
+    @media(max-width:760px){
+      header{
+        top:0 !important;
+      }
+
+      nav{
+        top:72px !important;
+      }
+
+      .hero{
+        padding-top:110px !important;
+      }
+    }
+
+  
+    /* === ABOUT SECTION FINAL ALIGNMENT === */
+    #about.about-aligned-section{
+      padding-top:155px !important;
+    }
+
+    #about .about-aligned-title,
+    #about .about-aligned-grid{
+      max-width:1320px !important;
+      width:100%;
+      margin-left:auto !important;
+      margin-right:auto !important;
+    }
+
+    #about .about-aligned-title{
+      margin-bottom:34px !important;
+    }
+
+    #about .about-aligned-title h2{
+      max-width:980px !important;
+    }
+
+    #about .about-aligned-title p{
+      max-width:1120px !important;
+      width:100%;
+      line-height:1.78 !important;
+      font-size:1.04rem !important;
+      color:#b9c3d2 !important;
+    }
+
+    #about .about-aligned-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+      gap:22px !important;
+      align-items:stretch !important;
+    }
+
+    #about .about-aligned-card{
+      padding:32px !important;
+      min-height:100% !important;
+    }
+
+    #about .about-aligned-card h3{
+      font-size:1.28rem !important;
+      margin-bottom:15px !important;
+    }
+
+    #about .about-aligned-card p{
+      line-height:1.82 !important;
+      font-size:1rem !important;
+      color:#b8c3d2 !important;
+    }
+
+    @media(max-width:1000px){
+      #about .about-aligned-grid{
+        grid-template-columns:1fr !important;
+      }
+      #about .about-aligned-title h2,
+      #about .about-aligned-title p{
+        max-width:100% !important;
+      }
+    }
+
+    @media(max-width:760px){
+      #about.about-aligned-section{
+        padding-top:110px !important;
+      }
+      #about .about-aligned-card{
+        padding:24px !important;
+      }
+    }
+
+  
+    /* === FINAL ABOUT FIX: one aligned What I Build card, engineering profile removed === */
+    #about.about-aligned-section{
+      padding-top:155px !important;
+    }
+
+    #about .about-aligned-title,
+    #about .about-single-grid{
+      max-width:1320px !important;
+      width:100% !important;
+      margin-left:auto !important;
+      margin-right:auto !important;
+    }
+
+    #about .about-aligned-title{
+      margin-bottom:34px !important;
+    }
+
+    #about .about-aligned-title h2{
+      max-width:980px !important;
+    }
+
+    #about .about-aligned-title p{
+      max-width:1120px !important;
+      width:100% !important;
+      line-height:1.78 !important;
+      font-size:1.04rem !important;
+      color:#b9c3d2 !important;
+    }
+
+    #about .about-single-grid{
+      grid-template-columns:1fr !important;
+    }
+
+    #about .about-single-card{
+      width:100% !important;
+      padding:32px !important;
+    }
+
+    #about .about-single-card h3{
+      font-size:1.28rem !important;
+      margin-bottom:15px !important;
+    }
+
+    #about .about-single-card p{
+      max-width:1120px !important;
+      line-height:1.82 !important;
+      font-size:1rem !important;
+      color:#b8c3d2 !important;
+    }
+
+    @media(max-width:760px){
+      #about.about-aligned-section{
+        padding-top:110px !important;
+      }
+
+      #about .about-single-card{
+        padding:24px !important;
+      }
+    }
+
+  
+    /* === FINAL ROBOT INTERACTION UPDATE: hero robots hover/drag only, no popups === */
+    .robot-draggable{cursor:grab !important;}
+    .robot-draggable::before{display:none !important;content:"" !important;}
+
+  </style>
+</head>
+<body>
+  <canvas id="spaceCanvas"></canvas><div class="noise"></div>
+<header id="header">
+    <a class="logo" href="#home"><span class="logo-mark">M.B</span><span>Portfolio</span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+    <nav>
+      <a href="#about">About</a><a href="#experience">Experience</a><a href="#education">Education</a><a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#certifications">Certifications</a><a href="#leadership">Awards</a><a href="#contact">Contact</a>
+    </nav>
+    <a class="resume-btn" href="#contact">Résumé</a>
+  </header>
+  <div class="side-dots" id="dots">
+    <a href="#home" data-label="HOME" class="active"></a><a href="#about" data-label="ABOUT"></a><a href="#experience" data-label="EXPERIENCE"></a><a href="#education" data-label="EDUCATION"></a><a href="#projects" data-label="PROJECTS"></a><a href="#skills" data-label="SKILLS"></a><a href="#certifications" data-label="CERTIFICATIONS"></a><a href="#leadership" data-label="AWARDS"></a><a href="#contact" data-label="CONTACT"></a>
+  </div>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-left reveal visible">
+<div class="eyebrow">Manar Bouaiss · Robotics Engineer</div>
+        <h1>Intelligent robotics<br><em>for real-world impact.</em></h1>
+        
+        <div class="hero-actions"><a class="primary" href="#projects">Explore projects →</a><a class="secondary" href="#contact">Get in touch</a></div>
+        <div class="socials"><a href="#contact">Email</a><span>/</span><a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a><span>/</span><a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a></div>
+      </div>
+      <div class="hero-stage" id="stage" aria-hidden="true">
+        <div class="orbit one"></div><div class="orbit two"></div><div class="orbit three"></div>
+        <div class="wire-robot drone" id="droneBot">
+          <svg viewBox="0 0 320 220" role="img">
+            <defs><filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+            <g filter="url(#glow)">
+              <ellipse class="svg-soft dash" cx="160" cy="106" rx="62" ry="32"/>
+              <rect class="svg-fill" x="116" y="78" width="88" height="58" rx="20"/>
+              <circle class="svg-soft" cx="160" cy="107" r="19"/>
+              <circle class="svg-dot pulse" cx="160" cy="107" r="4"/>
+              <path class="svg-line" d="M126 89 73 45M194 89l53-44M126 126l-52 48M194 126l52 48"/>
+              <g class="rotor"><ellipse class="svg-line" cx="62" cy="38" rx="44" ry="20"/><path class="svg-thin" d="M23 39h78M62 19v38"/><circle class="svg-dot" cx="62" cy="38" r="4"/></g>
+              <g class="rotor"><ellipse class="svg-line" cx="258" cy="38" rx="44" ry="20"/><path class="svg-thin" d="M219 39h78M258 19v38"/><circle class="svg-dot" cx="258" cy="38" r="4"/></g>
+              <g class="rotor"><ellipse class="svg-line" cx="62" cy="181" rx="44" ry="20"/><path class="svg-thin" d="M23 181h78M62 162v38"/><circle class="svg-dot" cx="62" cy="181" r="4"/></g>
+              <g class="rotor"><ellipse class="svg-line" cx="258" cy="181" rx="44" ry="20"/><path class="svg-thin" d="M219 181h78M258 162v38"/><circle class="svg-dot" cx="258" cy="181" r="4"/></g>
+              <path class="svg-thin" d="M134 97h52M136 116h48M152 82v52M171 82v52"/>
+              <path class="svg-line" d="M145 136c8 16 23 16 31 0"/>
+              <path class="svg-thin dash" d="M20 111C70 68 98 62 140 72M300 111c-50-43-78-49-120-39"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="wire-robot humanoid blueprint-human final-heavy-humanoid" id="humBot">
+          <svg viewBox="0 0 400 650" xmlns="http://www.w3.org/2000/svg" aria-label="Minimalist humanoid robot blueprint heavy chassis">
+            <circle cx="200" cy="300" r="230" class="dashed-ui" />
+            <circle cx="200" cy="100" r="60" class="dashed-ui" />
+            <line x1="200" y1="20" x2="200" y2="630" class="dashed-ui" />
+
+            <path d="M 183,80 C 183,55 217,55 217,80 C 217,105 213,115 200,115 C 187,115 183,105 183,80 Z" class="blueprint-main blueprint-fill" />
+            <path d="M 188,80 C 188,63 212,63 212,80 C 212,98 208,106 200,106 C 192,106 188,98 188,80 Z" class="accent-detail" />
+
+            <path d="M 192,114 L 192,125 L 208,125 L 208,114 Z" class="blueprint-main" />
+            <path d="M 174,134 C 185,134 190,125 200,125 C 210,125 215,134 226,134 C 238,134 242,142 242,142 L 158,142 Z" class="blueprint-main blueprint-fill" />
+
+            <path d="M 162,142 L 238,142 C 238,142 241,185 234,220 L 166,220 C 159,185 162,142 162,142 Z" class="blueprint-main blueprint-fill" />
+            <path d="M 168,148 L 232,148 C 232,148 235,182 228,212 L 172,212 C 165,182 168,148 168,148 Z" class="accent-detail" />
+
+            <path d="M 168,220 L 232,220 C 232,220 234,236 230,248 L 170,248 C 166,236 168,220 168,220 Z" class="blueprint-main blueprint-fill" />
+            <line x1="174" y1="234" x2="226" y2="234" class="accent-line accent-detail" />
+
+            <path d="M 160,254 L 240,254 L 234,285 L 166,285 Z" class="blueprint-main blueprint-fill" />
+            <circle cx="178" cy="270" r="7" class="blueprint-main" />
+            <circle cx="222" cy="270" r="7" class="blueprint-main" />
+            <rect x="188" y="262" width="24" height="15" rx="2" class="accent-detail" />
+
+            <path d="M 161,146 C 144,146 138,155 138,170 C 138,185 148,190 159,190" class="blueprint-main" />
+            <path d="M 138,192 L 158,192 L 155,235 L 133,235 Z" class="blueprint-main blueprint-fill" />
+            <rect x="131" y="235" width="25" height="28" rx="5" class="blueprint-main blueprint-fill" />
+            <line x1="131" y1="242" x2="156" y2="242" class="accent-detail" />
+            <line x1="131" y1="249" x2="156" y2="249" class="accent-detail" />
+            <line x1="131" y1="256" x2="156" y2="256" class="accent-detail" />
+            <path d="M 133,263 L 154,263 L 151,312 L 131,312 Z" class="blueprint-main blueprint-fill" />
+            <rect x="136" y="275" width="10" height="18" rx="2" class="accent-detail" />
+            <path d="M 141,312 L 138,338 C 138,342 144,345 144,345 L 149,324 L 148,312" class="blueprint-main" />
+
+            <path d="M 239,146 C 256,146 262,155 262,170 C 262,185 252,190 241,190" class="blueprint-main" />
+            <path d="M 262,192 L 242,192 L 245,235 L 267,235 Z" class="blueprint-main blueprint-fill" />
+            <rect x="244" y="235" width="25" height="28" rx="5" class="blueprint-main blueprint-fill" />
+            <line x1="244" y1="242" x2="269" y2="242" class="accent-detail" />
+            <line x1="244" y1="249" x2="269" y2="249" class="accent-detail" />
+            <line x1="244" y1="256" x2="269" y2="256" class="accent-detail" />
+            <path d="M 267,263 L 246,263 L 249,312 L 269,312 Z" class="blueprint-main blueprint-fill" />
+            <rect x="254" y="275" width="10" height="18" rx="2" class="accent-detail" />
+            <path d="M 259,312 L 262,338 C 262,342 256,345 256,345 L 251,324 L 252,312" class="blueprint-main" />
+
+            <path d="M 164,294 L 198,294 C 198,294 201,350 201,380 L 160,380 C 156,350 164,294 164,294 Z" class="blueprint-main blueprint-fill" />
+            <path d="M 168,300 L 193,300 L 195,374 L 166,374 Z" class="accent-detail" />
+            <circle cx="180" cy="392" r="12" class="blueprint-main blueprint-fill" />
+            <circle cx="180" cy="392" r="6" class="accent-detail" />
+            <path d="M 169,405 L 192,405 L 195,510 L 164,510 Z" class="blueprint-main blueprint-fill" />
+            <path d="M 169,425 L 162,428 L 162,475 L 165,488" class="blueprint-main" />
+            <path d="M 164,514 L 195,514 L 200,548 C 200,555 158,555 158,548 Z" class="blueprint-main blueprint-fill" />
+
+            <path d="M 236,294 L 202,294 C 202,294 199,350 199,380 L 240,380 C 244,350 236,294 236,294 Z" class="blueprint-main blueprint-fill" />
+            <path d="M 232,300 L 207,300 L 205,374 L 234,374 Z" class="accent-detail" />
+            <circle cx="220" cy="392" r="12" class="blueprint-main blueprint-fill" />
+            <circle cx="220" cy="392" r="6" class="accent-detail" />
+            <path d="M 231,405 L 208,405 L 205,510 L 236,510 Z" class="blueprint-main blueprint-fill" />
+            <path d="M 231,425 L 238,428 L 238,475 L 235,488" class="blueprint-main" />
+            <path d="M 236,514 L 205,514 L 200,548 C 200,555 242,555 242,548 Z" class="blueprint-main blueprint-fill" />
+
+            <ellipse cx="200" cy="551" rx="55" ry="9" class="dashed-ui" />
+          </svg>
+        </div>
+
+        <div class="wire-robot rover" id="roverBot">
+          <svg viewBox="0 0 420 260">
+            <g filter="url(#glow)">
+              <path class="svg-fill" d="M78 86h255c31 0 55 24 55 55v35c0 23-18 41-41 41H64c-24 0-43-19-43-43v-23c0-36 23-65 57-65Z"/>
+              <path class="svg-line" d="M65 87c28-35 57-45 102-45h98c48 0 82 15 111 45"/>
+              <path class="svg-thin" d="M92 118h216M93 151h261M113 181h225"/>
+              <rect class="svg-soft" x="77" y="118" width="72" height="33" rx="16"/>
+              <path class="svg-line" d="M103 135h22"/><circle class="svg-dot pulse" cx="94" cy="135" r="4"/>
+              <g class="wheel"><circle class="svg-soft" cx="100" cy="218" r="34"/><circle class="svg-line" cx="100" cy="218" r="20"/><path class="svg-thin" d="M100 184v68M66 218h68M76 194l48 48M124 194l-48 48"/></g>
+              <g class="wheel"><circle class="svg-soft" cx="202" cy="218" r="34"/><circle class="svg-line" cx="202" cy="218" r="20"/><path class="svg-thin" d="M202 184v68M168 218h68M178 194l48 48M226 194l-48 48"/></g>
+              <g class="wheel"><circle class="svg-soft" cx="305" cy="218" r="34"/><circle class="svg-line" cx="305" cy="218" r="20"/><path class="svg-thin" d="M305 184v68M271 218h68M281 194l48 48M329 194l-48 48"/></g>
+              <circle class="svg-soft scan-ring" cx="234" cy="46" r="24"/><path class="svg-line" d="M234 70v16M214 46h40"/>
+              <path class="svg-thin dash" d="M34 57c88-38 240-38 352 8M57 242c87 17 210 17 310-4"/>
+              <circle class="svg-dot pulse" cx="356" cy="128" r="5"/><circle class="svg-dot pulse" cx="256" cy="122" r="3"/><circle class="svg-dot pulse" cx="286" cy="122" r="3"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <section id="about" class="about-aligned-section">
+      <div class="section-title reveal about-aligned-title">
+        <div class="small">About</div>
+        <h2>Robotics, AI, and automation with a system-level mindset.</h2>
+        <p>I am a Robotics Engineer passionate about creating technologies that connect the physical and digital worlds. What motivates me most is turning ideas into practical systems capable of solving real problems and delivering meaningful impact. Driven by curiosity, continuous learning, and a passion for innovation, I enjoy exploring new technologies and tackling challenging projects. My long-term vision is to contribute to the development of intelligent solutions that make industries safer, more efficient, and more sustainable while expanding the positive impact of robotics and AI on society.</p>
+      </div>
+
+      <div class="grid about-single-grid">
+        <div class="card reveal about-single-card">
+          <h3>What I Build</h3>
+          <p>My engineering approach is strongly system-oriented. I enjoy designing complete solutions, from sensing and data acquisition to perception algorithms, control systems, software architecture, and deployment. Through projects in robotics, AI, embedded systems, industrial automation, and intelligent software, I have developed the ability to work across multiple disciplines while maintaining a strong focus on reliability, performance, and real-world usability. I particularly enjoy collaborating within multidisciplinary teams to transform innovative concepts into robust engineering solutions.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="experience">
+      <div class="section-title reveal">
+        <div class="small">Experience</div>
+        <h2>Professional experience across robotics, automation, and applied AI.</h2>
+        <p>Each experience contributed to a different layer of my engineering profile: industrial automation, embedded systems, robotic autonomy, sensor data, and AI-assisted technical workflows.</p>
+      </div>
+      <div class="grid timeline professional-story">
+        <div class="card item reveal">
+          <time>02/2025 – 09/2025</time>
+          <h3>Electronics Engineer</h3>
+          <div class="where">Research Centre in Industrial Technologies — CRTI</div>
+          <p>At CRTI, I worked on an electric vehicle prototype where my role focused on collecting, organizing, and analyzing sensor and telemetry data to better understand the system behavior and support performance improvement. I contributed to embedded integration and hardware-software interfacing, helping connect physical measurements with engineering analysis. This experience strengthened my ability to work with real experimental data, evaluate prototype behavior, and communicate technical observations clearly within a multidisciplinary engineering team.</p>
+        </div>
+        <div class="card item reveal">
+          <time>08/2023 – Present</time>
+          <h3>Freelance Software Engineer</h3>
+          <div class="where">IoT, Automation, and AI Workflows</div>
+          <p>As a freelance software engineer, I worked on practical automation and AI-assisted software solutions. My contribution involved building tools that simplify access to information, automate repetitive workflows, and support remote monitoring. I developed AI-powered assistant logic, backend workflows, and IoT-oriented solutions where sensor data, user interaction, and dashboard-style monitoring needed to work together. This work helped me develop a strong applied mindset: understanding the user need, translating it into software logic, and delivering functional tools that support decision-making.</p>
+        </div>
+        <div class="card item reveal">
+          <time>02/2023 – 07/2023</time>
+          <h3>R&D Intern — Robotics Division</h3>
+          <div class="where">Center for Development of Advanced Technologies — CDTA</div>
+          <p>During my R&D internship at CDTA, I contributed to the development of an autonomous surveillance mobile robot. My work covered both robotics software and system integration, including ROS-based navigation, sensor fusion, localization, mapping, and motor control. I also participated in connecting electronic components with the robot software stack, which gave me a complete view of how autonomous robotic systems are built from perception and control to real-time behavior. This experience became one of the foundations of my current robotics direction.</p>
+        </div>
+        <div class="card item reveal">
+          <time>01/2023 – 02/2023</time>
+          <h3>Industrial Control & Instrumentation Intern</h3>
+          <div class="where">Sonatrach — DCS / SCADA Environment</div>
+          <p>At Sonatrach, I was introduced to industrial control environments in the oil and gas sector. The experience gave me exposure to instrumentation, process supervision, DCS and SCADA systems, calibration activities, and field maintenance constraints. I observed how industrial data is monitored and interpreted in control rooms, and how safety and reliability requirements shape automation systems in critical infrastructure. This helped me connect my control engineering background with real industrial operations.</p>
+        </div>
+        <div class="card item reveal">
+          <time>08/2022 – 09/2022</time>
+          <h3>Automation Intern</h3>
+          <div class="where">Siemens Digital Industries</div>
+          <p>At Siemens Digital Industries, I gained hands-on experience in industrial automation. I worked with PLC programming on S7-300, S7-400, and S7-1200 platforms using Ladder logic and TIA Portal, and explored the design of HMI interfaces with WinCC for process supervision. The internship also introduced me to SCADA concepts and industrial communication protocols such as PROFINET, Modbus, and Profibus. This experience strengthened my understanding of how automation systems are programmed, supervised, and connected in industrial environments.</p>
+        </div>
+      </div>
+    </section>
+    <section id="education">
+      <div class="section-title reveal">
+        <div class="small">Education</div>
+        <h2>Academic foundation in robotics, control, and intelligent systems.</h2>
+        <p>Formal training across mechatronics, machine vision, AI, electronics, control engineering, and automation.</p>
+      </div>
+      <div class="grid timeline education-timeline">
+        <div class="card item reveal">
+          <time>09/2025 – 09/2026</time>
+          <h3>M2 Mechatronics, Machine Vision and AI</h3>
+          <div class="where">University of Évry Paris-Saclay, France</div>
+          <p>Relevant coursework: Advances in mechatronic systems, Modeling of parallel manipulators, Strategy Business Development, Adaptive Assistance and Control, Instrumentation electronics, Machine learning.</p>
+        </div>
+        <div class="card item reveal">
+          <time>09/2021 – 06/2023</time>
+          <h3>Control and Automation Engineering</h3>
+          <div class="where">Institute of Electrical and Electronic Engineering, Algeria</div>
+          <p><b>Grade:</b> 13.61 / 20 · <b>Ranking:</b> Top 10%</p>
+          <p>Relevant coursework: Industrial Automation, Industrial Instrumentation, Non-linear Systems, Control Systems, Advanced Mathematics, Digital Controller Implementations, Data Structures and Algorithms, Signal Processing.</p>
+        </div>
+        <div class="card item reveal">
+          <time>09/2018 – 06/2021</time>
+          <h3>Electrical and Electronic Engineering</h3>
+          <div class="where">Institute of Electrical and Electronic Engineering, Algeria</div>
+          <p><b>Grade:</b> 13.91 / 20 · <b>Ranking:</b> Top 10%</p>
+          <p>Relevant coursework: Electronic Circuit Design, Electrical Machines, Power Electronics, Energy Systems, Microprocessor System Design, Active Devices, Digital Systems, Communication Circuits.</p>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+    <section id="projects">
+      <div class="section-title reveal">
+        <div class="small">Projects</div>
+        <h2>Selected robotics and AI systems.</h2>
+        <p>Concise project cards with larger popups that provide the full project context, images, summaries, and technologies. Click a project card or a robot in the hero scene.</p>
+      </div>
+      <div class="projects-toolbar reveal">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="robotics">Robotics</button>
+        <button class="filter" data-filter="vision">Vision</button>
+        <button class="filter" data-filter="control">Control</button>
+        <button class="filter" data-filter="ai">AI</button>
+        <button class="filter" data-filter="simulation">Simulation</button>
+        <button class="filter" data-filter="llm">LLM</button>
+        <button class="filter" data-filter="rag">RAG</button>
+      </div>
+      <div class="grid project-grid">
+
+        <article class="card project-card reveal" data-key="pick-place" data-cat="robotics ai llm" data-title="Industrial Pick-and-Place: LLM Commands + IK Control" data-desc="Developed a simulated industrial pick-and-place workcell where a robotic manipulator executes repeatable grasp-and-place operations through inverse-kinematics target control. The system includes an LLM-powered voice interface that transforms natural-language instructions into constrained, safe high-level actions, connecting human interaction with robot motion planning." data-tech="ROS,Python,LLM,IK,Simulation" data-img="12.jpg" data-alt="Industrial pick-and-place robotic workcell" data-label="Manipulation">
+          <div class="project-thumb" data-placeholder="Manipulation">
+            <img src="12.jpg" alt="Industrial pick-and-place robotic workcell" loading="lazy" onerror="this.remove(); this.parentElement.classList.add('image-missing');">
+          </div>
+          <div class="project-card-body">
+            <span class="tag">Manipulation</span>
+            <h3>Industrial Pick-and-Place: LLM Commands + IK Control</h3>
+            <p>LLM voice commands and IK control for safe pick-and-place automation.</p>
+          </div>
+          <div class="techs"><span>ROS</span><span>Python</span><span>LLM</span><span>IK</span></div>
+        </article>
+        <article class="card project-card reveal" data-key="indoor-nav" data-cat="robotics vision" data-title="Indoor Navigation System" data-desc="Developed an autonomous mobile robot platform for indoor surveillance and navigation. The system combines mapping, localization, path planning, sensor integration, and AI-assisted perception to support real-time mission decisions in dynamic environments." data-tech="C++,SLAM,ROS,Navigation" data-img="22.jpg" data-alt="Indoor mobile robot navigation system" data-label="Autonomy">
+          <div class="project-thumb" data-placeholder="Autonomy">
+            <img src="22.jpg" alt="Indoor mobile robot navigation system" loading="lazy" onerror="this.remove(); this.parentElement.classList.add('image-missing');">
+          </div>
+          <div class="project-card-body">
+            <span class="tag">Autonomy</span>
+            <h3>Indoor Navigation System</h3>
+            <p>Mobile robot navigation with SLAM, localization, and autonomous decisions.</p>
+          </div>
+          <div class="techs"><span>C++</span><span>SLAM</span><span>ROS</span><span>Navigation</span></div>
+        </article>
+        <article class="card project-card reveal" data-key="uav-smc" data-cat="control robotics" data-title="Robust Control for UAVs using SMC" data-desc="Simulated a UAV control architecture using Sliding Mode Control to improve stability and trajectory tracking under disturbances, model uncertainties, wind effects, and parameter variations. The project strengthened my experience in nonlinear control and robust flight dynamics." data-tech="MATLAB,Simulink,Control,SMC" data-img="3.jpg" data-alt="UAV robust control simulation" data-label="Control">
+          <div class="project-thumb" data-placeholder="Control">
+            <img src="3.jpg" alt="UAV robust control simulation" loading="lazy" onerror="this.remove(); this.parentElement.classList.add('image-missing');">
+          </div>
+          <div class="project-card-body">
+            <span class="tag">Control</span>
+            <h3>Robust Control for UAVs using SMC</h3>
+            <p>Sliding Mode Control for stable UAV trajectory tracking.</p>
+          </div>
+          <div class="techs"><span>MATLAB</span><span>Simulink</span><span>Control</span><span>SMC</span></div>
+        </article>
+        <article class="card project-card reveal" data-key="predictive-maintenance" data-cat="ai vision robotics inspection" data-title="AI-Based Data Collection for Oil & Gas Inspection" data-desc="Developed an AI-based data collection system for an oil and gas inspection project, designed to be integrated on a robotic dog platform. The system uses computer vision to identify field instrument tags, read values from gauges and sensors, digitize the measurements, and send them to a monitoring platform for comparison with SCADA data and reference thresholds. The goal was to automate routine field inspections, reduce manual technician rounds, improve data reliability, and support safer, more efficient monitoring of industrial sites." data-tech="Computer Vision,AI,OCR,SCADA" data-img="1.png" data-alt="AI-based robotic inspection data collection system" data-label="Inspection AI">
+          <div class="project-thumb" data-placeholder="Inspection AI">
+            <img src="1.png" alt="AI-based robotic inspection data collection system" loading="lazy" onerror="this.remove(); this.parentElement.classList.add('image-missing');">
+          </div>
+          <div class="project-card-body">
+            <span class="tag">Inspection AI</span>
+            <h3>AI-Based Data Collection for Oil & Gas Inspection</h3>
+            <p>Computer vision system for robotic field inspection and SCADA comparison.</p>
+          </div>
+          <div class="techs"><span>Computer Vision</span><span>AI</span><span>OCR</span><span>SCADA</span></div>
+        </article>
+        <article class="card project-card reveal" data-key="ppe-safety" data-cat="vision ai" data-title="Real-Time Safety Compliance System" data-desc="Implemented a real-time computer vision system for safety compliance monitoring in oil and gas environments. The system detects PPE such as helmets and safety vests using YOLOv8 and OpenCV, supporting field supervision and risk reduction." data-tech="Python,YOLOv8,OpenCV,Computer Vision" data-img="2.png" data-alt="Real-time PPE detection system" data-label="Computer Vision">
+          <div class="project-thumb" data-placeholder="Computer Vision">
+            <img src="2.png" alt="Real-time PPE detection system" loading="lazy" onerror="this.remove(); this.parentElement.classList.add('image-missing');">
+          </div>
+          <div class="project-card-body">
+            <span class="tag">Computer Vision</span>
+            <h3>Real-Time Safety Compliance System</h3>
+            <p>YOLOv8 PPE detection for oil and gas field safety monitoring.</p>
+          </div>
+          <div class="techs"><span>Python</span><span>YOLOv8</span><span>OpenCV</span><span>Computer Vision</span></div>
+        </article>
+        <article class="card project-card reveal" data-key="px4-rl-drone" data-cat="robotics simulation control ai" data-title="PX4 ROS 2 Drone Simulation for RL Control" data-desc="Developed a drone simulation and control framework using PX4 SITL, Gazebo Sim, ROS 2, Micro XRCE-DDS, and QGroundControl. A custom ROS 2 offboard node arms the drone, switches to Offboard mode, performs takeoff, tracks position setpoints, monitors odometry, and prepares the pipeline for reinforcement learning-based autonomous flight control." data-tech="PX4,ROS 2,Gazebo Sim,QGroundControl,RL" data-img="4.png" data-alt="PX4 ROS 2 drone simulation with Gazebo" data-label="Drone Simulation">
+          <div class="project-thumb" data-placeholder="Drone Simulation">
+            <img src="4.png" alt="PX4 ROS 2 drone simulation with Gazebo" loading="lazy" onerror="this.remove(); this.parentElement.classList.add('image-missing');">
+          </div>
+          <div class="project-card-body">
+            <span class="tag">Drone Simulation</span>
+            <h3>PX4 ROS 2 Drone Simulation for RL Control</h3>
+            <p>PX4 SITL, Gazebo Sim, ROS 2, and QGroundControl pipeline.</p>
+          </div>
+          <div class="techs"><span>PX4</span><span>ROS 2</span><span>Gazebo Sim</span><span>QGroundControl</span></div>
+        </article>
+        <article class="card project-card reveal" data-key="ai-verbal-robot" data-cat="robotics ai llm" data-title="AI Verbal Communication with Robot" data-desc="Developed a ROS-based verbal communication pipeline for a humanoid robot using a local LLM, speech-to-text, text-to-speech, and short-term conversational memory. The system enables offline, context-aware human–robot interaction through spoken commands and natural responses." data-tech="ROS,Local LLM,STT,TTS,HRI" data-img="3.png" data-alt="AI verbal communication with humanoid robot" data-label="Human-Robot Interaction">
+          <div class="project-thumb" data-placeholder="Human-Robot Interaction">
+            <img src="3.png" alt="AI verbal communication with humanoid robot" loading="lazy" onerror="this.remove(); this.parentElement.classList.add('image-missing');">
+          </div>
+          <div class="project-card-body">
+            <span class="tag">Human-Robot Interaction</span>
+            <h3>AI Verbal Communication with Robot</h3>
+            <p>Offline ROS pipeline for speech-based human–robot interaction.</p>
+          </div>
+          <div class="techs"><span>ROS</span><span>Local LLM</span><span>STT</span><span>TTS</span></div>
+        </article>
+        <article class="card project-card reveal" data-key="rag-reporting-agent" data-cat="ai rag llm" data-title="AI Agent with RAG for Technical Reporting" data-desc="Developed a RAG-based AI agent for technical reporting from engineering documents. The system ingests PDF and text files, splits them into chunks, generates SentenceTransformers embeddings, stores them in a vector database, and retrieves relevant context to produce grounded, traceable answers with reduced hallucination." data-tech="RAG,SentenceTransformers,Vector DB,Python,LLM" data-img="5.png" data-alt="AI agent interface for technical reporting" data-label="AI Agent">
+          <div class="project-thumb" data-placeholder="AI Agent">
+            <img src="5.png" alt="AI agent interface for technical reporting" loading="lazy" onerror="this.remove(); this.parentElement.classList.add('image-missing');">
+          </div>
+          <div class="project-card-body">
+            <span class="tag">AI Agent</span>
+            <h3>AI Agent with RAG for Technical Reporting</h3>
+            <p>Grounded technical reporting from engineering documents.</p>
+          </div>
+          <div class="techs"><span>RAG</span><span>SentenceTransformers</span><span>Vector DB</span><span>Python</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-title reveal">
+        <div class="small">Skills</div>
+        <h2>Technical toolkit.</h2>
+        <p>A practical skill set across robotics software, AI, control, automation, embedded systems, simulation, and industrial engineering tools.</p>
+      </div>
+      <div class="grid skills-context-grid">
+        <div class="card reveal">
+          <h3>Robotics & Simulation</h3>
+          <div class="skill-cloud">
+            <span class="chip">ROS 1</span><span class="chip">ROS 2</span><span class="chip">Gazebo</span><span class="chip">RViz</span><span class="chip">PX4 SITL</span><span class="chip">QGroundControl</span><span class="chip">SLAM</span><span class="chip">Navigation</span><span class="chip">Sensor Fusion</span><span class="chip">Odometry</span>
+          </div>
+        </div>
+        <div class="card reveal">
+          <h3>AI, Vision & LLMs</h3>
+          <div class="skill-cloud">
+            <span class="chip">Python</span><span class="chip">OpenCV</span><span class="chip">YOLOv8</span><span class="chip">PyTorch</span><span class="chip">TensorFlow</span><span class="chip">Machine Learning</span><span class="chip">Local LLMs</span><span class="chip">RAG</span><span class="chip">SentenceTransformers</span><span class="chip">Vector Databases</span>
+          </div>
+        </div>
+        <div class="card reveal">
+          <h3>Control & Automation</h3>
+          <div class="skill-cloud">
+            <span class="chip">MATLAB</span><span class="chip">Simulink</span><span class="chip">PID</span><span class="chip">Sliding Mode Control</span><span class="chip">Observers</span><span class="chip">PLC</span><span class="chip">TIA Portal</span><span class="chip">WinCC HMI</span><span class="chip">DCS</span><span class="chip">SCADA</span><span class="chip">PROFINET</span><span class="chip">Modbus</span><span class="chip">Profibus</span>
+          </div>
+        </div>
+        <div class="card reveal">
+          <h3>Embedded, Software & Tools</h3>
+          <div class="skill-cloud">
+            <span class="chip">C/C++</span><span class="chip">Shell/Bash</span><span class="chip">Linux</span><span class="chip">Git</span><span class="chip">Docker</span><span class="chip">Raspberry Pi</span><span class="chip">Arduino</span><span class="chip">STM32</span><span class="chip">Jetson Nano</span><span class="chip">FPGA</span><span class="chip">IoT</span><span class="chip">Dashboards</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section id="certifications">
+      <div class="section-title reveal">
+        <div class="small">Certifications & Courses</div>
+        <h2>Technical learning and engineering courses.</h2>
+        <p>Selected courses and certificates that support my background in robotics, AI, programming, engineering, and applied technical systems.</p>
+      </div>
+      <div class="grid certification-grid community-grid">
+        <div class="card cert-card reveal">
+          <h3>Robotics in Space</h3>
+          <a class="cert-link" href="certificates/robotics-in-space-certificate.pdf" target="_blank" rel="noreferrer">View certificate</a>
+        </div>
+        <div class="card cert-card reveal">
+          <h3>Additive Manufacturing</h3>
+          <a class="cert-link" href="certificates/additive-manufacturing-certificate.pdf" target="_blank" rel="noreferrer">View certificate</a>
+        </div>
+        <div class="card cert-card reveal">
+          <h3>Mechanical Engineering Summer University (AAF)</h3>
+          <a class="cert-link" href="certificates/mechanical-engineering-summer-university-aaf-certificate.pdf" target="_blank" rel="noreferrer">View certificate</a>
+        </div>
+        <div class="card cert-card reveal">
+          <h3>Computational Neuroscience</h3>
+          <a class="cert-link" href="certificates/computational-neuroscience-certificate.pdf" target="_blank" rel="noreferrer">View certificate</a>
+        </div>
+        <div class="card cert-card reveal">
+          <h3>C++ for Robotics</h3>
+          <a class="cert-link" href="certificates/cpp-for-robotics-certificate.pdf" target="_blank" rel="noreferrer">View certificate</a>
+        </div>
+        <div class="card cert-card reveal">
+          <h3>Python for Data Science and AI Development</h3>
+          <a class="cert-link" href="certificates/python-data-science-ai-development-certificate.pdf" target="_blank" rel="noreferrer">View certificate</a>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="leadership">
+      <div class="section-title reveal">
+        <div class="small">Competitions, Leadership & Technical Community</div>
+        <h2>Competitions, leadership, and technical community work.</h2>
+        <p>Hackathons, awards, and community activities that helped me develop teamwork, communication, problem framing, technical creativity, and innovation skills.</p>
+      </div>
+      <div class="grid awards leadership-story">
+        <div class="card reveal featured-community">
+          <h3>BR41N.IO Brain-Computer Interface Designer’s Hackathon</h3>
+          <p>I participated in the BR41N.IO Brain-Computer Interface Designer’s Hackathon during the BCI & Neurotechnology Spring School 2026 organized by g.tec medical engineering. This experience connected my robotics and AI interests with neurotechnology, BCI concepts, and human-centered intelligent systems.</p>
+          <a class="cert-link" href="certificates/2026-hackathon-attendees-certificate.pdf" target="_blank" rel="noreferrer">View certificate</a>
+        </div>
+
+        <div class="card reveal featured-community">
+          <h3>Siemens WomenHackAI 2023</h3>
+          <p>I participated in Siemens WomenHackAI 2023, an AI-focused hackathon initiative encouraging women in technology, collaborative problem-solving, and applied AI innovation. The experience strengthened my ability to work under time constraints and transform ideas into practical AI-driven concepts.</p>
+          <a class="cert-link" href="certificates/siemens-womenhackai-2023-certificate.pdf" target="_blank" rel="noreferrer">View certificate</a>
+        </div>
+
+        <div class="card reveal">
+          <h3>IEEE Student Branch of Boumerdes — General Secretary</h3>
+          <p>As General Secretary, I contributed to the coordination of student-led technical, academic, and community activities. My role involved organizing meetings, supporting communication between teams, and helping plan events that encouraged engineering students to engage with technology, teamwork, and professional development.</p>
+        </div>
+
+        <div class="card reveal">
+          <h3>Entrepreneurship Competition – 9th YEC, Algeria — 1st Prize</h3>
+          <p>I contributed to a winning robotics startup concept focused on automation and social impact. The competition helped me strengthen my ability to present technical ideas as practical solutions with business relevance and user value.</p>
+        </div>
+
+        <div class="card reveal">
+          <h3>Net Zero Ideathon, Algeria — 1st Prize</h3>
+          <p>My team proposed a sustainability-oriented solution integrating sea plants into the production chain to reduce CO₂ emissions. This experience strengthened my interest in using engineering and innovation to address environmental challenges.</p>
+        </div>
+
+        <div class="card reveal">
+          <h3>SOLVEX – Water Optimization Challenge — 1st Prize</h3>
+          <p>I worked on an innovative monitoring concept aimed at reducing water usage in agriculture. The project connected sensing, data, and resource optimization, which aligns with my broader interest in intelligent systems for real-world impact.</p>
+        </div>
+
+        <div class="card reveal">
+          <h3>AI Hack – Computer Vision Hackathon, Tunisia — 4th Place</h3>
+          <p>This international hackathon experience allowed me to apply computer vision to an industrial automation challenge under time constraints. It strengthened my ability to prototype quickly, collaborate in a team, and transform AI concepts into a working solution.</p>
+        </div>
+
+        <div class="card reveal">
+          <h3>International Youth Math Challenge — Bronze Honour</h3>
+          <p>The IYMC recognition reflects my interest in analytical reasoning, mathematics, and structured problem-solving, which continue to support my work in robotics, control, and AI.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-title reveal">
+        <div class="small">Contact</div>
+        <h2>Let’s build intelligent robotic systems.</h2>
+        <p>I am open to robotics, AI, automation, computer vision, embedded systems, industrial software, simulation, and control engineering opportunities.</p>
+      </div>
+      <div class="grid contact-grid">
+        <div class="card contact-card reveal">
+          <h3>Reach me</h3>
+          <p>For engineering roles, internships, research projects, and collaborations opportunities...</p>
+          <a href="mailto:manarbouaiss@gmail.com">manarbouaiss@gmail.com</a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+        <div class="card reveal">
+          <h3>Best-fit opportunities</h3>
+          <p>Robotics Engineer, AI Engineer, Computer Vision Engineer, Automation Engineer, Control Engineer, Embedded Systems Engineer, ROS/Simulation Engineer, and Industrial Software roles.</p>
+          <div class="techs"><span>Robotics</span><span>AI</span><span>ROS 2</span><span>Computer Vision</span><span>SCADA</span><span>Control</span><span>Embedded</span></div>
+        </div>
+      </div>
+    </section>
+
+</main>
+
+<div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-box project-modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="close" id="closeModal" aria-label="Close project window">×</button>
+      <div class="modal-media" id="modalMedia">
+        <img id="modalImage" src="" alt="">
+        <div class="modal-media-fallback" id="modalFallback">
+          <span id="modalFallbackLabel">PROJECT IMAGE</span>
+        </div>
+      </div>
+      <div class="modal-copy">
+        <span class="modal-kicker" id="modalCategory">Project</span>
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+        <div class="modal-actions">
+          <a href="#projects" class="modal-link" id="modalProjectLink">View in projects</a>
+        </div>
+        <div class="techs" id="modalTech"></div>
+      </div>
+    </div>
+  </div></div>
+  <script>
+    const root=document.documentElement, header=document.getElementById('header'), menuBtn=document.getElementById('menuBtn');
+    const stage=document.getElementById('stage'), drone=document.getElementById('droneBot'), hum=document.getElementById('humBot'), rover=document.getElementById('roverBot');
+    let mx=.5,my=.5, tx=.5,ty=.5, scrollY=0;
+    function clamp(n,min,max){return Math.min(max,Math.max(min,n))}
+
+    const dragState={
+      drone:{x:0,y:0,tx:0,ty:0,limit:105},
+      hum:{x:0,y:0,tx:0,ty:0,limit:82},
+      rover:{x:0,y:0,tx:0,ty:0,limit:95}
+    };
+    let activeDrag=null;
+
+
+    const robotProjectMap={};
+
+    function makeRobotDraggable(el,key){
+      if(!el) return;
+      el.classList.add('robot-draggable');
+      el.addEventListener('pointerdown',e=>{
+        activeDrag={
+          key,
+          startX:e.clientX,
+          startY:e.clientY,
+          baseX:dragState[key].tx,
+          baseY:dragState[key].ty,
+          moved:false
+        };
+        el.classList.add('is-dragging');
+        el.setPointerCapture?.(e.pointerId);
+        e.preventDefault();
+      });
+      el.addEventListener('pointerup',e=>{
+        const current=activeDrag;
+        el.classList.remove('is-dragging');
+        activeDrag=null;
+        el.releasePointerCapture?.(e.pointerId);
+        if(current){
+          const dist=Math.hypot(e.clientX-current.startX,e.clientY-current.startY);
+          if(dist<8 && robotProjectMap[key]){
+            openProjectByKey(robotProjectMap[key]);
+          }
+        }
+      });
+      el.addEventListener('pointercancel',()=>{
+        el.classList.remove('is-dragging');
+        activeDrag=null;
+      });
+      el.addEventListener('dblclick',()=>{
+        dragState[key].tx=0;
+        dragState[key].ty=0;
+      });
+    }
+
+
+    makeRobotDraggable(drone,'drone');
+    makeRobotDraggable(hum,'hum');
+    makeRobotDraggable(rover,'rover');
+
+    window.addEventListener('pointermove',e=>{
+      tx=e.clientX/innerWidth;
+      ty=e.clientY/innerHeight;
+      root.style.setProperty('--mx',tx);
+      root.style.setProperty('--my',ty);
+
+      if(activeDrag){
+        const s=dragState[activeDrag.key];
+        s.tx=clamp(activeDrag.baseX+(e.clientX-activeDrag.startX),-s.limit,s.limit);
+        s.ty=clamp(activeDrag.baseY+(e.clientY-activeDrag.startY),-s.limit,s.limit);
+      }else{
+        spawnParticle(e.clientX,e.clientY);
+      }
+    },{passive:false});
+
+    window.addEventListener('scroll',()=>{scrollY=window.scrollY;root.style.setProperty('--scroll',scrollY+'px')},{passive:true});
+
+    function easeDrag(){
+      Object.values(dragState).forEach(s=>{
+        s.x+=(s.tx-s.x)*.18;
+        s.y+=(s.ty-s.y)*.18;
+      });
+    }
+
+    function animate(){
+      mx+=(tx-mx)*.075;
+      my+=(ty-my)*.075;
+      easeDrag();
+
+      const dx=(mx-.5),dy=(my-.5);
+      const droneY=-scrollY*.13+dy*64+dragState.drone.y;
+      const droneX=dx*52+dragState.drone.x;
+      const humX=dx*-22+dragState.hum.x;
+      const humY=dy*20+dragState.hum.y;
+      const roverX=dx*48+dragState.rover.x;
+      const roverY=dy*16+dragState.rover.y;
+
+      drone.style.transform=`translate3d(${droneX}px,${droneY}px,90px) rotateX(${dy*-15}deg) rotateZ(${dx*16}deg)`;
+      hum.style.transform=`translate3d(${humX}px,${humY}px,70px) rotateY(${dx*30}deg) rotateX(${dy*-10}deg)`;
+      rover.style.transform=`translate3d(${roverX}px,${roverY}px,75px) rotateY(${dx*-10}deg) rotateX(${dy*5}deg)`;
+
+      requestAnimationFrame(animate)
+    }
+    animate();
+    menuBtn.addEventListener('click',()=>document.body.classList.toggle('nav-open'));document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>document.body.classList.remove('nav-open')));
+    const reveals=document.querySelectorAll('.reveal');const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.12});reveals.forEach(el=>io.observe(el));
+    const sections=[...document.querySelectorAll('section')], dots=[...document.querySelectorAll('.side-dots a')];const dotObs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){dots.forEach(d=>d.classList.toggle('active',d.getAttribute('href')==='#'+entry.target.id))}})},{threshold:.48});sections.forEach(s=>dotObs.observe(s));
+    document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;document.querySelectorAll('.project-card').forEach(card=>{card.style.display=(f==='all'||card.dataset.cat.includes(f))?'flex':'none'})}));
+    const modal=document.getElementById('modal'),
+      closeModal=document.getElementById('closeModal'),
+      modalTitle=document.getElementById('modalTitle'),
+      modalDesc=document.getElementById('modalDesc'),
+      modalTech=document.getElementById('modalTech'),
+      modalImage=document.getElementById('modalImage'),
+      modalMedia=document.getElementById('modalMedia'),
+      modalFallback=document.getElementById('modalFallback'),
+      modalFallbackLabel=document.getElementById('modalFallbackLabel'),
+      modalCategory=document.getElementById('modalCategory'),
+      modalProjectLink=document.getElementById('modalProjectLink');
+
+    const projectData={
+      'pick-place':{title:'Industrial Pick-and-Place: LLM Commands + IK Control',desc:'Developed a simulated industrial pick-and-place workcell where a robotic manipulator executes repeatable grasp-and-place operations through inverse-kinematics target control. The system includes an LLM-powered voice interface that transforms natural-language instructions into constrained, safe high-level actions, connecting human interaction with robot motion planning.',tech:['ROS', 'Python', 'LLM', 'IK', 'Simulation'],img:'12.jpg',alt:'Industrial pick-and-place robotic workcell',label:'Manipulation'},
+      'indoor-nav':{title:'Indoor Navigation System',desc:'Developed an autonomous mobile robot platform for indoor surveillance and navigation. The system combines mapping, localization, path planning, sensor integration, and AI-assisted perception to support real-time mission decisions in dynamic environments.',tech:['C++', 'SLAM', 'ROS', 'Navigation'],img:'22.jpg',alt:'Indoor mobile robot navigation system',label:'Autonomy'},
+      'uav-smc':{title:'Robust Control for UAVs using SMC',desc:'Simulated a UAV control architecture using Sliding Mode Control to improve stability and trajectory tracking under disturbances, model uncertainties, wind effects, and parameter variations. The project strengthened my experience in nonlinear control and robust flight dynamics.',tech:['MATLAB', 'Simulink', 'Control', 'SMC'],img:'3.jpg',alt:'UAV robust control simulation',label:'Control'},
+      'predictive-maintenance':{title:'AI-Based Data Collection for Oil & Gas Inspection',desc:'Developed an AI-based data collection system for an oil and gas inspection project, designed to be integrated on a robotic dog platform. The system uses computer vision to identify field instrument tags, read values from gauges and sensors, digitize the measurements, and send them to a monitoring platform for comparison with SCADA data and reference thresholds. The goal was to automate routine field inspections, reduce manual technician rounds, improve data reliability, and support safer, more efficient monitoring of industrial sites.',tech:['Computer Vision','AI','OCR','SCADA'],img:'1.png',alt:'AI-based robotic inspection data collection system',label:'Inspection AI'},
+      'ppe-safety':{title:'Real-Time Safety Compliance System',desc:'Implemented a real-time computer vision system for safety compliance monitoring in oil and gas environments. The system detects PPE such as helmets and safety vests using YOLOv8 and OpenCV, supporting field supervision and risk reduction.',tech:['Python', 'YOLOv8', 'OpenCV', 'Computer Vision'],img:'2.png',alt:'Real-time PPE detection system',label:'Computer Vision'},
+      'px4-rl-drone':{title:'PX4 ROS 2 Drone Simulation for RL Control',desc:'Developed a drone simulation and control framework using PX4 SITL, Gazebo Sim, ROS 2, Micro XRCE-DDS, and QGroundControl. A custom ROS 2 offboard node arms the drone, switches to Offboard mode, performs takeoff, tracks position setpoints, monitors odometry, and prepares the pipeline for reinforcement learning-based autonomous flight control.',tech:['PX4', 'ROS 2', 'Gazebo Sim', 'QGroundControl', 'RL'],img:'4.png',alt:'PX4 ROS 2 drone simulation with Gazebo',label:'Drone Simulation'},
+      'ai-verbal-robot':{title:'AI Verbal Communication with Robot',desc:'Developed a ROS-based verbal communication pipeline for a humanoid robot using a local LLM, speech-to-text, text-to-speech, and short-term conversational memory. The system enables offline, context-aware human–robot interaction through spoken commands and natural responses.',tech:['ROS', 'Local LLM', 'STT', 'TTS', 'HRI'],img:'3.png',alt:'AI verbal communication with humanoid robot',label:'Human-Robot Interaction'},
+      'rag-reporting-agent':{title:'AI Agent with RAG for Technical Reporting',desc:'Developed a RAG-based AI agent for technical reporting from engineering documents. The system ingests PDF and text files, splits them into chunks, generates SentenceTransformers embeddings, stores them in a vector database, and retrieves relevant context to produce grounded, traceable answers with reduced hallucination.',tech:['RAG', 'SentenceTransformers', 'Vector DB', 'Python', 'LLM'],img:'5.png',alt:'AI agent interface for technical reporting',label:'AI Agent'}
+    };
+
+    function fallbackSvg(label){
+      const safe=encodeURIComponent(label || 'PROJECT IMAGE');
+      const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760">
+        <defs>
+          <linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#06111b"/><stop offset="1" stop-color="#10293a"/></linearGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <rect width="1200" height="760" fill="url(#g)"/>
+        <g opacity=".24" stroke="#54f4e6" fill="none">
+          <path d="M80 590 C270 420 560 300 1120 190" stroke-dasharray="18 22"/>
+          <circle cx="620" cy="370" r="260"/><circle cx="620" cy="370" r="135"/>
+          <path d="M0 380H1200M600 0V760" opacity=".35"/>
+        </g>
+        <g filter="url(#glow)" text-anchor="middle">
+          <text x="600" y="365" fill="#54f4e6" font-family="monospace" font-size="42" font-weight="900" letter-spacing="6">${safe}</text>
+          <text x="600" y="420" fill="#c8fdf8" font-family="monospace" font-size="20" letter-spacing="4">ADD YOUR PROJECT IMAGE FILE IN THE SAME FOLDER</text>
+        </g>
+      </svg>`;
+      return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
+    }
+
+    function openProjectModal(data){
+      if(!data) return;
+      modalTitle.textContent=data.title;
+      modalDesc.textContent=data.desc;
+      modalCategory.textContent=data.label || 'Project';
+      modalTech.innerHTML=(data.tech || []).map(t=>`<span>${t}</span>`).join('');
+      modalProjectLink.href='#projects';
+
+      modalFallback.style.display='none';
+      modalFallbackLabel.textContent=(data.label || 'Project image');
+      modalImage.style.display='block';
+      modalImage.alt=data.alt || data.title || 'Project image';
+      modalImage.onerror=()=>{
+        modalImage.onerror=null;
+        modalImage.src=fallbackSvg(data.label || data.title || 'PROJECT IMAGE');
+      };
+      modalImage.src=data.img || fallbackSvg(data.label || data.title);
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+    }
+
+    function openProjectByKey(key){
+      openProjectModal(projectData[key]);
+    }
+
+    document.querySelectorAll('.project-card').forEach(card=>card.addEventListener('click',()=>{
+      const key=card.dataset.key;
+      const data=projectData[key] || {
+        title:card.dataset.title,
+        desc:card.dataset.desc,
+        tech:(card.dataset.tech || '').split(',').filter(Boolean),
+        img:card.dataset.img,
+        alt:card.dataset.alt,
+        label:card.dataset.label
+      };
+      openProjectModal(data);
+    }));
+
+    function closeProjectModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+    }
+
+    closeModal.addEventListener('click',closeProjectModal);
+    modal.addEventListener('click',e=>{if(e.target===modal)closeProjectModal()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProjectModal()});
+
+    document.getElementById('year').textContent=new Date().getFullYear();
+    const canvas=document.getElementById('spaceCanvas'),ctx=canvas.getContext('2d');let w,h,stars=[],particles=[];function resize(){w=canvas.width=innerWidth*devicePixelRatio;h=canvas.height=innerHeight*devicePixelRatio;canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';stars=Array.from({length:Math.min(150,Math.floor(innerWidth/7))},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.4+.2,v:Math.random()*.22+.05,a:Math.random()*.55+.12}))}resize();addEventListener('resize',resize);
+    function spawnParticle(x,y){if(particles.length>80)return;particles.push({x:x*devicePixelRatio,y:y*devicePixelRatio,vx:(Math.random()-.5)*1.2,vy:(Math.random()-.5)*1.2,life:1,r:Math.random()*2+1})}
+    setInterval(()=>{const rect=drone.getBoundingClientRect();if(rect.width>0){for(let i=0;i<2;i++)particles.push({x:(rect.left+rect.width*.5+(Math.random()-.5)*80)*devicePixelRatio,y:(rect.top+rect.height*.58+(Math.random()-.5)*50)*devicePixelRatio,vx:(Math.random()-.5)*.9,vy:Math.random()*1.2+.5,life:1,r:Math.random()*2+1})}},95);
+    function draw(){ctx.clearRect(0,0,w,h);ctx.save();stars.forEach(s=>{s.y+=s.v*devicePixelRatio;if(s.y>h)s.y=0;ctx.globalAlpha=s.a*(.55+.45*Math.sin(Date.now()/1000+s.x));ctx.fillStyle='#9cfdf6';ctx.beginPath();ctx.arc(s.x,s.y,s.r*devicePixelRatio,0,Math.PI*2);ctx.fill()});particles.forEach((p,i)=>{p.x+=p.vx*devicePixelRatio;p.y+=p.vy*devicePixelRatio;p.life-=.018;ctx.globalAlpha=Math.max(0,p.life);ctx.fillStyle='#54f4e6';ctx.shadowColor='#54f4e6';ctx.shadowBlur=18;ctx.beginPath();ctx.arc(p.x,p.y,p.r*devicePixelRatio,0,Math.PI*2);ctx.fill();if(p.life<=0)particles.splice(i,1)});ctx.restore();requestAnimationFrame(draw)}draw();
+  </script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.robot-draggable').forEach(robot => {
+      robot.removeAttribute('data-key');
+      robot.removeAttribute('data-project');
+    });
+  });
+</script>
+
+</body>
+</html>
